@@ -127,7 +127,7 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 <body>
 <header class="barre"><div class="conteneur">
   <a class="marque" href="#"><span>Texture</span></a>
-  <nav class="liens"><a href="#services">Services</a><a href="#infos">Horaires & accès</a></nav>
+  <nav class="liens"><a href="#services">Services</a><a href="#images">En images</a><a href="#infos">Horaires & accès</a></nav>
   <a class="bouton plein petit" href="tel:0142012512"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Appeler</a>
 </div></header>
 
@@ -163,7 +163,10 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   </div>
 </div></section>
 
-
+<section class="bloc" id="images" style="padding-top:0"><div class="conteneur">
+  <h2>En images</h2>
+  <div class="galerie n3"><img src="../../photos/librairie-x5.jpg" alt="" loading="lazy"><img src="../../photos/librairie-x7.jpg" alt="" loading="lazy"><img src="../../photos/librairie-x8.jpg" alt="" loading="lazy"></div>
+</div></section>
 
 
 
@@ -188,10 +191,10 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   
 </div></footer>
 
-<div class="apercu"><div><b>Maquette réalisée pour Texture</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Texture">Je le veux</a></div>
+<div class="apercu"><div><b>Maquette réalisée pour Texture</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span><small>Photos d’illustration, à remplacer par les vôtres.</small></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Texture">Je le veux</a></div>
 <script>
 (function(){var d=new Date().getDay(),l=document.querySelector('tr[data-jsem="'+d+'"]');if(!l)return;l.classList.add('aujourdhui');
-var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/d{2}hd{2} – d{2}hd{2}/.test(h);
+var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/\d{2}h\d{2} – \d{2}h\d{2}/.test(h);
 (h.match(/\d{2}h\d{2} – \d{2}h\d{2}/g)||[]).forEach(function(p){var t=p.match(/\d{2}/g).map(Number);var a=t[0]*60+t[1],b=t[2]*60+t[3];if(b<=a)b+=1440;if(min>=a&&min<b)ouvert=true});
 document.querySelectorAll('[data-etat]').forEach(function(e){if(!connu){e.textContent='Aujourd’hui';return}e.textContent=ouvert?'Ouvert maintenant':'Fermé actuellement';e.style.color=ouvert?'#16a34a':'#b91c1c'});
 document.querySelectorAll('[data-jour]').forEach(function(e){e.textContent="Aujourd’hui : "+h});

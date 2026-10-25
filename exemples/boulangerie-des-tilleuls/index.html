@@ -4,81 +4,121 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Boulangerie des Tilleuls — Boulangerie-pâtisserie à Villeneuve-la-Garenne</title>
+<title>Boulangerie des Tilleuls — Boulangerie-pâtisserie à Clichy</title>
 <meta name="description" content="Pains au levain, viennoiseries pur beurre et pâtisseries du jour, faits maison chaque matin depuis 1998.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--fond:#FBF6EF;--surface:#FFFFFF;--encre:#2B1D14;--doux:#6F5B4B;--accent:#C2410C;--sur-accent:#FFFFFF;--trait:#EADFD2;
---titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:18px}
+--titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:20px}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--fond);color:var(--encre);font:400 17px/1.6 var(--texte);-webkit-font-smoothing:antialiased}
 a{color:inherit}
+img{display:block;max-width:100%}
 .ico{width:20px;height:20px;fill:currentColor;flex:none}
-.conteneur{width:min(1120px,100% - 32px);margin-inline:auto}
-header.barre{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--fond) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
-header.barre .conteneur{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
-.marque{display:flex;align-items:center;gap:12px;font:700 20px/1.1 var(--titre);text-decoration:none;min-width:0}
-.marque img{height:40px;width:auto;max-width:120px;object-fit:contain}
+.conteneur{width:min(1160px,100% - 32px);margin-inline:auto}
+header.barre{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--fond) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--trait)}
+header.barre .conteneur{display:flex;align-items:center;justify-content:space-between;gap:16px;height:70px}
+.marque{display:flex;align-items:center;gap:12px;font:700 21px/1.1 var(--titre);text-decoration:none;min-width:0}
+.marque img{height:42px;width:auto;max-width:130px;object-fit:contain}
 .marque span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 nav.liens{display:flex;gap:28px;font-weight:500;font-size:15px}
 nav.liens a{text-decoration:none;color:var(--doux)} nav.liens a:hover{color:var(--encre)}
-.bouton{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:999px;font:600 16px/1 var(--texte);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.bouton{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:999px;font:600 16px/1 var(--texte);text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
 .bouton:hover{transform:translateY(-1px)}
-.plein{background:var(--accent);color:var(--sur-accent);box-shadow:0 8px 24px -10px var(--accent)}
+.plein{background:var(--accent);color:var(--sur-accent);box-shadow:0 10px 26px -12px var(--accent)}
 .contour{background:var(--surface);color:var(--encre);border:1px solid var(--trait)}
+.verre{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(6px)}
 .petit{padding:10px 16px;font-size:14px}
-.hero{padding:72px 0 56px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-40% -10% auto auto;width:640px;height:640px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 18%,transparent),transparent);pointer-events:none}
-.hero .conteneur{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;position:relative}
-.etiquette{display:inline-block;font:600 13px/1 var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
-h1{font:800 clamp(40px,6vw,72px)/1.02 var(--titre);letter-spacing:-.02em}
-.hero p.chapo{font-size:20px;color:var(--doux);margin:20px 0 32px;max-width:34ch}
+.etiquette{display:inline-block;font:600 13px/1 var(--texte);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h1{font:800 clamp(42px,6.4vw,80px)/1 var(--titre);letter-spacing:-.025em}
+.chapo{font-size:20px;color:var(--doux);margin:22px 0 32px;max-width:36ch}
 .actions{display:flex;flex-wrap:wrap;gap:12px}
-.carte-infos{background:var(--surface);border:1px solid var(--trait);border-radius:24px;padding:28px;box-shadow:0 30px 60px -40px rgba(0,0,0,.35)}
-.carte-infos img.photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;margin-bottom:20px;background:var(--trait)}
+/* hero plein écran */
+.hero-plein{background-size:cover;background-position:center;color:#fff;padding:110px 0 90px;min-height:620px;display:flex;align-items:center}
+.hero-plein .conteneur{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:end}
+.hero-plein .etiquette{color:#fff;opacity:.9}
+.hero-plein .chapo{color:rgba(255,255,255,.86)}
+.hero-plein h1{text-shadow:0 2px 30px rgba(0,0,0,.25)}
+/* hero scindé */
+.hero-scinde{padding:64px 0 56px}
+.hero-scinde .conteneur{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.photo-hero{position:relative;margin:0}
+.photo-hero img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:32px;box-shadow:0 40px 80px -40px rgba(0,0,0,.45)}
+.photo-hero figcaption{position:absolute;left:20px;bottom:20px;background:var(--surface);border-radius:16px;padding:14px 18px;box-shadow:0 20px 40px -20px rgba(0,0,0,.4);display:grid;gap:2px;max-width:calc(100% - 40px)}
+.photo-hero figcaption small{color:var(--doux);font-size:14px}
+/* hero simple (sans photo) */
+.hero-simple{padding:72px 0 56px}
+.hero-simple .conteneur{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.carte-infos{background:var(--surface);color:var(--encre);border:1px solid var(--trait);border-radius:24px;padding:26px;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
 .ligne-info{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--trait);font-size:15px}
-.ligne-info:first-of-type{border-top:0;padding-top:0}
+.ligne-info:first-child{border-top:0;padding-top:0}
+.ligne-info:last-child{padding-bottom:0}
 .ligne-info .ico{color:var(--accent);margin-top:2px}
 .ligne-info strong{display:block;font-weight:600}
 .ligne-info span{color:var(--doux)}
-.ouvert{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px}
+.ouvert{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
 .ouvert::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
-section{padding:72px 0}
-h2{font:800 clamp(30px,4vw,44px)/1.1 var(--titre);letter-spacing:-.015em;margin-bottom:12px}
+/* repères */
+.reperes{border-block:1px solid var(--trait);background:var(--surface)}
+.reperes .conteneur{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.reperes div{display:flex;align-items:center;gap:12px;padding:20px 24px;font-weight:500;font-size:15px;border-left:1px solid var(--trait)}
+.reperes div:first-child{border-left:0;padding-left:0}
+.reperes .ico{color:var(--accent)}
+section.bloc{padding:88px 0}
+h2{font:800 clamp(32px,4.2vw,50px)/1.08 var(--titre);letter-spacing:-.015em;margin-bottom:14px}
 .intro{color:var(--doux);font-size:18px;max-width:60ch;margin-bottom:40px}
-.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.service{background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);padding:28px}
-.service .pastille{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent);margin-bottom:18px}
-.service h3{font:700 20px/1.25 var(--titre);margin-bottom:6px}
-.service p{color:var(--doux);font-size:15px}
-.apropos{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.apropos img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:24px}
+.grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:36px}
+.service{background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);padding:30px;transition:transform .2s,box-shadow .2s}
+.service:hover{transform:translateY(-3px);box-shadow:0 24px 48px -30px rgba(0,0,0,.35)}
+.service .pastille{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 12%,var(--surface));color:var(--accent);margin-bottom:20px}
+.service .pastille .ico{width:24px;height:24px}
+.service h3{font:700 21px/1.25 var(--titre);margin-bottom:8px}
+.service p{color:var(--doux);font-size:15.5px}
+.galerie{display:grid;grid-template-columns:2fr 1fr;grid-auto-rows:240px;gap:14px;margin-top:36px}
+.galerie img{width:100%;height:100%;object-fit:cover;border-radius:18px}
+.galerie img:first-child{grid-row:span 2}
+.galerie.n2{grid-template-columns:1fr 1fr;grid-auto-rows:340px}.galerie.n2 img:first-child{grid-row:auto}
+.galerie.n3{}.galerie.n1{grid-template-columns:1fr;grid-auto-rows:420px}.galerie.n1 img:first-child{grid-row:auto}
+.apropos{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.apropos.seul{grid-template-columns:1fr;max-width:760px}.apropos img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:28px}
+.apropos .texte p{color:var(--doux);font-size:18px}
 .apropos .texte p+p{margin-top:14px}
-.bande{background:var(--encre);color:var(--fond);border-radius:28px;padding:48px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.bande{background:var(--encre);color:var(--fond);border-radius:32px;padding:56px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.bande::after{content:"";position:absolute;right:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 45%,transparent),transparent)}
+.bande>*{position:relative;z-index:1}
 .bande h2{color:var(--fond);margin:0}
-.bande p{color:color-mix(in srgb,var(--fond) 70%,transparent)}
-.infos{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:stretch}
+.bande p{color:color-mix(in srgb,var(--fond) 70%,transparent);margin-top:6px}
+.infos{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:stretch;margin-top:36px}
 .horaires{background:var(--surface);border:1px solid var(--trait);border-radius:var(--rayon);padding:28px}
-.horaires table{width:100%;border-collapse:collapse;font-size:15px}
-.horaires td{padding:10px 0;border-top:1px solid var(--trait)}
+.horaires table{width:100%;border-collapse:collapse;font-size:15.5px}
+.horaires td{padding:11px 0;border-top:1px solid var(--trait)}
 .horaires tr:first-child td{border-top:0}
 .horaires td:last-child{text-align:right;color:var(--doux)}
 .horaires tr.aujourdhui td{font-weight:700;color:var(--encre)}
-.plan{border-radius:var(--rayon);overflow:hidden;border:1px solid var(--trait);min-height:320px;background:var(--trait)}
-.plan iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+.plan{border-radius:var(--rayon);overflow:hidden;border:1px solid var(--trait);min-height:340px;background:var(--trait)}
+.plan iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
 footer{padding:40px 0 48px;border-top:1px solid var(--trait);color:var(--doux);font-size:14px}
 footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
 .apercu{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;align-items:center;gap:16px;justify-content:space-between;background:#111;color:#fff;border-radius:16px;padding:12px 12px 12px 20px;font:500 14px/1.35 Inter,system-ui,sans-serif;box-shadow:0 20px 40px -12px rgba(0,0,0,.5)}
 .apercu b{font-weight:700}
+.apercu small{display:block;opacity:.7;font-size:12px;margin-top:2px}
 .apercu a{background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-weight:700;text-decoration:none;white-space:nowrap}
-@media (max-width:860px){
+@media (max-width:900px){
   nav.liens{display:none}
-  .hero{padding:40px 0 32px}
-  .hero .conteneur,.apropos,.infos{grid-template-columns:1fr}
-  section{padding:48px 0}
-  .bande{padding:32px}
+  .marque img+span{display:none}
+  .hero-plein{padding:72px 0 40px;min-height:0}
+  .hero-plein .conteneur,.hero-scinde .conteneur,.hero-simple .conteneur,.apropos,.infos{grid-template-columns:1fr}
+  .hero-scinde{padding:36px 0}
+  .photo-hero img{aspect-ratio:4/3}
+  .reperes .conteneur{grid-template-columns:1fr}
+  .reperes div{border-left:0;border-top:1px solid var(--trait);padding:14px 0}
+  .reperes div:first-child{border-top:0}
+  section.bloc{padding:56px 0}
+  .galerie,.galerie.n2{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
+  .galerie img:first-child{grid-column:span 2;grid-row:auto}
+  .bande{padding:32px;border-radius:24px}
   .apercu{font-size:13px}
   .apercu .detail{display:none}
 }
@@ -87,73 +127,76 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 <body>
 <header class="barre"><div class="conteneur">
   <a class="marque" href="#"><span>Boulangerie des Tilleuls</span></a>
-  <nav class="liens"><a href="#services">La carte</a><a href="#apropos">À propos</a><a href="#infos">Horaires & accès</a></nav>
+  <nav class="liens"><a href="#services">La carte</a><a href="#images">En images</a><a href="#apropos">À propos</a><a href="#infos">Horaires & accès</a></nav>
   <a class="bouton plein petit" href="tel:0123456789"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Appeler</a>
 </div></header>
 
 <main>
-<section class="hero"><div class="conteneur">
-  <div>
-    <span class="etiquette">Boulangerie-pâtisserie · Villeneuve-la-Garenne</span>
-    <h1>Boulangerie des Tilleuls</h1>
-    <p class="chapo">Pains au levain, viennoiseries pur beurre et pâtisseries du jour, faits maison chaque matin depuis 1998.</p>
-    <div class="actions">
+
+<section class="hero hero-scinde"><div class="conteneur">
+  
+    <div class="texte-hero">
+      <span class="etiquette">Boulangerie-pâtisserie · Clichy</span>
+      <h1>Boulangerie des Tilleuls</h1>
+      <p class="chapo">Pains au levain, viennoiseries pur beurre et pâtisseries du jour, faits maison chaque matin depuis 1998.</p>
+      <div class="actions">
       <a class="bouton plein" href="tel:0123456789"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>01 23 45 67 89</a>
-      <a class="bouton contour" href="https://www.google.com/maps/dir/?api=1&destination=48.9372,2.3268" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Itinéraire</a>
-      
+      <a class="bouton contour" href="https://www.google.com/maps/dir/?api=1&destination=48.9045,2.3062" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Itinéraire</a>
+      </div>
     </div>
-  </div>
-  <aside class="carte-infos">
-    
-    <div class="ligne-info"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 3.2 1.9-.8 1.3L11 13V7h2z"/></svg><div><strong id="etat" class="ouvert">Horaires</strong><span id="detail-jour"></span></div></div>
-    <div class="ligne-info"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><div><strong>12 avenue des Tilleuls</strong><span>92390 Villeneuve-la-Garenne</span></div></div>
-    <div class="ligne-info"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><div><strong>01 23 45 67 89</strong><span>Appel direct</span></div></div>
-    
-  </aside>
+  <figure class="photo-hero"><img src="../../photos/boulangerie-x2.jpg" alt="Boulangerie des Tilleuls"><figcaption><span data-etat class="ouvert">Horaires</span><small data-jour></small></figcaption></figure>
 </div></section>
+<div class="reperes"><div class="conteneur"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.6 3.2 1.9-.8 1.3L11 13V7h2z"/></svg><span data-jour-court>Horaires</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span>12 rue des Tilleuls · Clichy</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg><span>Pains au levain · Viennoiseries pur beurre · Gâteaux sur commande</span></div></div></div>
 
-<section id="services"><div class="conteneur">
+<section class="bloc" id="services"><div class="conteneur">
   <h2>Ce qu’on vous propose</h2>
-  <div style="height:28px"></div>
+  
   <div class="grille">
-    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div><h3>Pains au levain</h3><p>Tradition, campagne, céréales : pétris et cuits sur place, plusieurs fournées par jour.</p></article>
-    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div><h3>Viennoiseries pur beurre</h3><p>Croissants, pains au chocolat et chaussons sortis du four dès 7 h.</p></article>
-    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div><h3>Gâteaux sur commande</h3><p>Anniversaires, communions, mariages : commandez 48 h à l’avance.</p></article>
+    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg></div><h3>Pains au levain</h3><p>Tradition, campagne, céréales : pétris et cuits sur place, plusieurs fournées par jour.</p></article>
+    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg></div><h3>Viennoiseries pur beurre</h3><p>Croissants, pains au chocolat et chaussons sortis du four dès 7 h.</p></article>
+    <article class="service"><div class="pastille"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg></div><h3>Gâteaux sur commande</h3><p>Anniversaires, communions, mariages : commandez 48 h à l’avance.</p></article>
   </div>
 </div></section>
 
-<section id="apropos"><div class="conteneur apropos">
+<section class="bloc" id="images" style="padding-top:0"><div class="conteneur">
+  <h2>En images</h2>
+  <div class="galerie n3"><img src="../../photos/boulangerie-x3.jpg" alt="" loading="lazy"><img src="../../photos/boulangerie-x4.jpg" alt="" loading="lazy"><img src="../../photos/patisserie-x11.jpg" alt="" loading="lazy"></div>
+</div></section>
+
+<section class="bloc" id="apropos" style="padding-top:0"><div class="conteneur apropos seul">
   <div class="texte"><h2>Qui sommes-nous ?</h2><p>Exemple fictif réalisé par Hakkanodev pour montrer le style d’un site de boulangerie.</p></div>
   
 </div></section>
 
-<section style="padding-top:0"><div class="conteneur"><div class="bande">
-  <div><h2>Une question ? Appelez-nous.</h2><p>12 avenue des Tilleuls, 92390 Villeneuve-la-Garenne</p></div>
+<section class="bloc" style="padding-top:0"><div class="conteneur"><div class="bande">
+  <div><h2>Une question ? Appelez-nous.</h2><p>12 rue des Tilleuls, 92110 Clichy</p></div>
   <a class="bouton plein" href="tel:0123456789"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>01 23 45 67 89</a>
 </div></div></section>
 
-<section id="infos" style="padding-top:0"><div class="conteneur">
+<section class="bloc" id="infos" style="padding-top:0"><div class="conteneur">
   <h2>Horaires & accès</h2>
-  <p class="intro">12 avenue des Tilleuls, 92390 Villeneuve-la-Garenne</p>
+  <p class="intro" style="margin-bottom:0">12 rue des Tilleuls, 92110 Clichy</p>
   <div class="infos">
-    <div class="horaires"><table><tr data-jour="1"><td>Lundi</td><td>Fermé</td></tr><tr data-jour="2"><td>Mardi</td><td>07h00 – 19h30</td></tr><tr data-jour="3"><td>Mercredi</td><td>07h00 – 19h30</td></tr><tr data-jour="4"><td>Jeudi</td><td>07h00 – 19h30</td></tr><tr data-jour="5"><td>Vendredi</td><td>07h00 – 19h30</td></tr><tr data-jour="6"><td>Samedi</td><td>07h00 – 19h30</td></tr><tr data-jour="0"><td>Dimanche</td><td>07h00 – 13h00</td></tr></table></div>
-    <div class="plan"><iframe loading="lazy" title="Plan d’accès" src="https://www.openstreetmap.org/export/embed.html?bbox=2.3228,48.9347,2.3308,48.939699999999995&layer=mapnik&marker=48.9372,2.3268"></iframe></div>
+    <div class="horaires"><table><tr data-jsem="1"><td>Lundi</td><td>Fermé</td></tr><tr data-jsem="2"><td>Mardi</td><td>07h00 – 19h30</td></tr><tr data-jsem="3"><td>Mercredi</td><td>07h00 – 19h30</td></tr><tr data-jsem="4"><td>Jeudi</td><td>07h00 – 19h30</td></tr><tr data-jsem="5"><td>Vendredi</td><td>07h00 – 19h30</td></tr><tr data-jsem="6"><td>Samedi</td><td>07h00 – 19h30</td></tr><tr data-jsem="0"><td>Dimanche</td><td>07h00 – 13h00</td></tr></table></div>
+    <div class="plan"><iframe loading="lazy" title="Plan d’accès" src="https://www.openstreetmap.org/export/embed.html?bbox=2.3022,48.902,2.3102,48.907&layer=mapnik&marker=48.9045,2.3062"></iframe></div>
   </div>
 </div></section>
 </main>
 
 <footer><div class="conteneur">
-  <span>© 2026 Boulangerie des Tilleuls · 12 avenue des Tilleuls, 92390 Villeneuve-la-Garenne</span>
+  <span>© 2026 Boulangerie des Tilleuls · 12 rue des Tilleuls, 92110 Clichy</span>
   <span>Mentions légales</span>
+  
 </div></footer>
 
 
 <script>
-(function(){var d=new Date().getDay(),l=document.querySelector('tr[data-jour="'+d+'"]');if(!l)return;l.classList.add('aujourdhui');
-var h=l.children[1].textContent,e=document.getElementById('etat'),dj=document.getElementById('detail-jour');
-dj.textContent="Aujourd’hui : "+h;var n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=false;
+(function(){var d=new Date().getDay(),l=document.querySelector('tr[data-jsem="'+d+'"]');if(!l)return;l.classList.add('aujourdhui');
+var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/\d{2}h\d{2} – \d{2}h\d{2}/.test(h);
 (h.match(/\d{2}h\d{2} – \d{2}h\d{2}/g)||[]).forEach(function(p){var t=p.match(/\d{2}/g).map(Number);var a=t[0]*60+t[1],b=t[2]*60+t[3];if(b<=a)b+=1440;if(min>=a&&min<b)ouvert=true});
-if(/24 h/.test(h))ouvert=true;e.textContent=ouvert?'Ouvert maintenant':'Fermé actuellement';e.style.color=ouvert?'#16a34a':'#b91c1c'})();
+document.querySelectorAll('[data-etat]').forEach(function(e){if(!connu){e.textContent='Aujourd’hui';return}e.textContent=ouvert?'Ouvert maintenant':'Fermé actuellement';e.style.color=ouvert?'#16a34a':'#b91c1c'});
+document.querySelectorAll('[data-jour]').forEach(function(e){e.textContent="Aujourd’hui : "+h});
+document.querySelectorAll('[data-jour-court]').forEach(function(e){e.textContent=(connu&&ouvert?'Ouvert · ':'')+"Aujourd’hui : "+h})})();
 </script>
 </body>
 </html>

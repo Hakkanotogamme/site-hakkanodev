@@ -161,7 +161,7 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 
 <section class="bloc" id="images" style="padding-top:0"><div class="conteneur">
   <h2>En images</h2>
-  <div class="galerie n1"><img src="photo-2.jpg" alt="" loading="lazy"></div>
+  <div class="galerie n3"><img src="photo-2.jpg" alt="" loading="lazy"><img src="../../photos/japonais-x8.jpg" alt="" loading="lazy"><img src="../../photos/japonais-x10.jpg" alt="" loading="lazy"></div>
 </div></section>
 
 <section class="bloc" id="apropos" style="padding-top:0"><div class="conteneur apropos seul">
@@ -190,10 +190,10 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   
 </div></footer>
 
-<div class="apercu"><div><b>Maquette réalisée pour Koko</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Koko">Je le veux</a></div>
+<div class="apercu"><div><b>Maquette réalisée pour Koko</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span><small>Photos d’illustration, à remplacer par les vôtres.</small></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Koko">Je le veux</a></div>
 <script>
 (function(){var d=new Date().getDay(),l=document.querySelector('tr[data-jsem="'+d+'"]');if(!l)return;l.classList.add('aujourdhui');
-var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/d{2}hd{2} – d{2}hd{2}/.test(h);
+var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/\d{2}h\d{2} – \d{2}h\d{2}/.test(h);
 (h.match(/\d{2}h\d{2} – \d{2}h\d{2}/g)||[]).forEach(function(p){var t=p.match(/\d{2}/g).map(Number);var a=t[0]*60+t[1],b=t[2]*60+t[3];if(b<=a)b+=1440;if(min>=a&&min<b)ouvert=true});
 document.querySelectorAll('[data-etat]').forEach(function(e){if(!connu){e.textContent='Aujourd’hui';return}e.textContent=ouvert?'Ouvert maintenant':'Fermé actuellement';e.style.color=ouvert?'#16a34a':'#b91c1c'});
 document.querySelectorAll('[data-jour]').forEach(function(e){e.textContent="Aujourd’hui : "+h});
