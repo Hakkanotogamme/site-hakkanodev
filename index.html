@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hakkanodev — Sites internet pour commerces et artisans</title>
+<meta name="description" content="Un site pro pour votre commerce, en ligne en 48 h. 249 € tout compris, sans abonnement. Vous payez une fois le site en ligne. Villeneuve-la-Garenne, Hauts-de-Seine et Seine-Saint-Denis.">
+<link rel="canonical" href="https://hakkanodev.fr/">
+<meta property="og:title" content="Hakkanodev — Votre site pro en 48 h, 249 € tout compris">
+<meta property="og:description" content="Sites internet pour commerces et artisans. Sans abonnement, vous payez une fois le site en ligne.">
+<meta property="og:image" content="https://hakkanodev.fr/img/ex-boulangerie.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111318'/%3E%3Cpath d='M18 16h7v13h14V16h7v32h-7V35H25v13h-7z' fill='%23FF5B2E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Hakkanodev","url":"https://hakkanodev.fr/","email":"abdallah.gsair@gmail.com","founder":"Abdallah Gsair",
+ "address":{"@type":"PostalAddress","addressLocality":"Villeneuve-la-Garenne","postalCode":"92390","addressCountry":"FR"},
+ "areaServed":["Hauts-de-Seine","Seine-Saint-Denis","Paris"],"priceRange":"249 €"}
+</script>
+<style>
+:root{--fond:#F7F6F2;--surface:#FFFFFF;--encre:#111318;--doux:#5E6170;--accent:#FF5B2E;--accent-fonce:#E0441A;--trait:#E5E3DC;--vert:#15803D;
+--titre:'Bricolage Grotesque',system-ui,sans-serif;--texte:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--encre);font:400 17px/1.6 var(--texte);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.conteneur{width:min(1120px,100% - 32px);margin-inline:auto}
+header{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--fond) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+header .conteneur{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font:800 21px/1 var(--titre);text-decoration:none;letter-spacing:-.01em}
+.logo i{width:32px;height:32px;border-radius:9px;background:var(--encre);display:grid;place-items:center;color:var(--accent);font:800 17px/1 var(--titre);font-style:normal}
+nav{display:flex;gap:28px;font-size:15px;font-weight:500}
+nav a{text-decoration:none;color:var(--doux)} nav a:hover{color:var(--encre)}
+.bouton{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;border-radius:999px;font:600 16px/1 var(--texte);text-decoration:none;transition:transform .15s,background .15s}
+.bouton:hover{transform:translateY(-1px)}
+.plein{background:var(--accent);color:#fff;box-shadow:0 10px 28px -12px var(--accent)} .plein:hover{background:var(--accent-fonce)}
+.contour{border:1px solid var(--trait);background:var(--surface)}
+.petit{padding:10px 16px;font-size:14px}
+.hero{padding:88px 0 72px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-180px;top:-220px;width:720px;height:720px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,91,46,.16),transparent);pointer-events:none}
+.hero .conteneur{position:relative}
+.puce{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--trait);font-size:14px;font-weight:500;color:var(--doux);margin-bottom:24px}
+.puce b{color:var(--vert)}
+h1{font:800 clamp(42px,7vw,84px)/.98 var(--titre);letter-spacing:-.03em;max-width:13ch}
+h1 em{font-style:normal;color:var(--accent)}
+.chapo{font-size:21px;color:var(--doux);max-width:46ch;margin:26px 0 36px}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.garanties{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font-size:15px;color:var(--doux)}
+.garanties span::before{content:"✓";color:var(--vert);font-weight:700;margin-right:8px}
+section{padding:80px 0}
+h2{font:800 clamp(32px,4.4vw,50px)/1.05 var(--titre);letter-spacing:-.02em;margin-bottom:14px}
+.intro{color:var(--doux);font-size:19px;max-width:58ch;margin-bottom:44px}
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:e}
+.etape{background:var(--surface);border:1px solid var(--trait);border-radius:20px;padding:30px}
+.etape::before{counter-increment:e;content:counter(e);display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--encre);color:#fff;font:800 18px/1 var(--titre);margin-bottom:20px}
+.etape h3{font:700 21px/1.25 var(--titre);margin-bottom:8px}
+.etape p{color:var(--doux);font-size:16px}
+.exemples{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.exemple{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--trait);border-radius:20px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.exemple:hover{transform:translateY(-3px);box-shadow:0 24px 48px -28px rgba(0,0,0,.35)}
+.exemple img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border-bottom:1px solid var(--trait)}
+.exemple div{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.exemple small{color:var(--doux);font-weight:500}
+.note{color:var(--doux);font-size:14px;margin-top:16px}
+.offre{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.prix{background:var(--encre);color:#fff;border-radius:28px;padding:40px}
+.prix .montant{font:800 76px/1 var(--titre);letter-spacing:-.03em}
+.prix .montant small{font:500 18px/1 var(--texte);color:#A9ADBB;margin-left:8px;letter-spacing:0}
+.prix p{color:#C9CCD6;margin:14px 0 28px}
+.prix ul{list-style:none;padding:0;display:grid;gap:12px;margin-bottom:32px}
+.prix li{display:flex;gap:12px}
+.prix li::before{content:"✓";color:var(--accent);font-weight:800}
+.faq{display:grid;gap:12px}
+details{background:var(--surface);border:1px solid var(--trait);border-radius:16px;padding:20px 24px}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font:600 22px/1 var(--texte);color:var(--doux)}
+details[open] summary::after{content:"–"}
+details p{color:var(--doux);margin-top:12px;font-size:16px}
+.moi{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;background:var(--surface);border:1px solid var(--trait);border-radius:28px;padding:40px}
+.avatar{width:120px;height:120px;border-radius:50%;background:var(--encre);color:var(--accent);display:grid;place-items:center;font:800 44px/1 var(--titre)}
+.moi p+p{margin-top:12px}
+.moi p{color:var(--doux)}
+.contact{text-align:center;padding:96px 0}
+.contact h2{max-width:20ch;margin-inline:auto}
+.contact .intro{margin-inline:auto}
+.contact .actions{justify-content:center}
+footer{border-top:1px solid var(--trait);padding:36px 0 48px;color:var(--doux);font-size:14px}
+footer .conteneur{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+@media (max-width:860px){
+  nav{display:none}
+  .hero{padding:48px 0 40px}
+  section{padding:56px 0}
+  .etapes,.exemples,.offre{grid-template-columns:1fr}
+  .prix{padding:30px}
+  .moi{grid-template-columns:1fr;padding:28px;gap:20px}
+  .avatar{width:84px;height:84px;font-size:32px}
+}
+</style>
+</head>
+<body>
+<header><div class="conteneur">
+  <a class="logo" href="#"><i>H</i>Hakkanodev</a>
+  <nav><a href="#comment">Comment ça marche</a><a href="#exemples">Exemples</a><a href="#offre">Tarif</a><a href="#questions">Questions</a></nav>
+  <a class="bouton plein petit" href="#contact">Ma maquette gratuite</a>
+</div></header>
+
+<main>
+<section class="hero"><div class="conteneur">
+  <span class="puce"><b>●</b> Commerces et artisans · Hauts-de-Seine &amp; Seine-Saint-Denis</span>
+  <h1>Votre site pro, en ligne en <em>48 h</em>.</h1>
+  <p class="chapo">Je crée le site de votre commerce : beau, adapté au téléphone, avec vos horaires, votre adresse et un bouton pour vous appeler. <strong>249 € tout compris, sans abonnement.</strong></p>
+  <div class="actions">
+    <a class="bouton plein" href="#contact">Recevoir ma maquette gratuite</a>
+    <a class="bouton contour" href="#exemples">Voir des exemples</a>
+  </div>
+  <div class="garanties"><span>Maquette offerte avant tout engagement</span><span>Vous payez une fois le site en ligne</span><span>Aucun abonnement</span></div>
+</div></section>
+
+<section id="comment"><div class="conteneur">
+  <h2>Comment ça marche</h2>
+  <p class="intro">Vous n'avez rien à préparer et rien à installer. Vous me donnez le nom de votre commerce, je m'occupe du reste.</p>
+  <div class="etapes">
+    <article class="etape"><h3>Je prépare votre maquette</h3><p>Gratuitement, avec vos informations : métier, horaires, adresse, téléphone, photos si vous en avez.</p></article>
+    <article class="etape"><h3>Vous la corrigez</h3><p>Un texte à changer, une photo à ajouter, une couleur qui ne vous plaît pas : je modifie jusqu'à ce que ce soit bon.</p></article>
+    <article class="etape"><h3>Je la mets en ligne</h3><p>Sur votre propre nom de domaine, en 48 h. Vous payez à ce moment-là, sur facture.</p></article>
+  </div>
+</div></section>
+
+<section id="exemples" style="padding-top:0"><div class="conteneur">
+  <h2>Exemples</h2>
+  <p class="intro">Chaque site est fait sur mesure, avec un style adapté à votre métier.</p>
+  <div class="exemples">
+    <a class="exemple" href="exemples/boulangerie-des-tilleuls/"><img src="img/ex-boulangerie.jpg" alt="Exemple de site pour une boulangerie" loading="lazy"><div>Boulangerie <small>Voir →</small></div></a>
+    <a class="exemple" href="exemples/garage-du-port/"><img src="img/ex-garage.jpg" alt="Exemple de site pour un garage" loading="lazy"><div>Garage <small>Voir →</small></div></a>
+    <a class="exemple" href="exemples/salon-ines/"><img src="img/ex-salon.jpg" alt="Exemple de site pour un salon de coiffure" loading="lazy"><div>Salon de coiffure <small>Voir →</small></div></a>
+  </div>
+  <p class="note">Commerces fictifs, créés pour l'exemple.</p>
+</div></section>
+
+<section id="offre" style="padding-top:0"><div class="conteneur offre">
+  <div class="prix">
+    <div class="montant">249 €<small>une seule fois</small></div>
+    <p>Tout compris. TVA non applicable. Payable une fois le site en ligne.</p>
+    <ul>
+      <li>Site sur mesure, adapté au téléphone, à la tablette et à l'ordinateur</li>
+      <li>Votre nom de domaine (votrecommerce.fr) offert la première année</li>
+      <li>Hébergement compris, sans abonnement</li>
+      <li>Bouton d'appel, itinéraire, horaires et plan d'accès</li>
+      <li>Bases du référencement Google</li>
+      <li>Mentions légales rédigées</li>
+      <li>Retouches jusqu'à ce que le site vous plaise</li>
+    </ul>
+    <a class="bouton plein" href="#contact">Je veux mon site</a>
+  </div>
+  <div>
+    <h2>Un prix clair, pas d'abonnement</h2>
+    <p class="intro" style="margin-bottom:24px">Les agences facturent souvent plus de 1 000 €, et les outils « faites-le vous-même » coûtent un abonnement tous les mois, à vie. Ici, vous payez une fois et le site est à vous.</p>
+    <p class="intro" style="margin-bottom:0">Ensuite, seul le nom de domaine se renouvelle chaque année (environ 10 à 15 €). Besoin d'une modification plus tard ? Je la fais pour 25 €.</p>
+  </div>
+</div></section>
+
+<section id="questions" style="padding-top:0"><div class="conteneur">
+  <h2>Questions fréquentes</h2>
+  <div class="faq" style="margin-top:32px">
+    <details><summary>J'ai déjà un site ou un nom de domaine. Ça marche quand même ?</summary><p>Oui. Je garde votre nom de domaine : vos clients retrouvent votre site à la même adresse, en version neuve.</p></details>
+    <details><summary>Qui écrit les textes et fournit les photos ?</summary><p>Je vous propose des textes à partir de vos informations, vous les corrigez. Pour les photos, quelques clichés de votre commerce pris au téléphone suffisent. Sinon, j'utilise des visuels libres de droits.</p></details>
+    <details><summary>Je ne m'y connais pas en informatique.</summary><p>Vous n'avez rien à faire de technique. Tout se passe par mail ou par téléphone, et vous validez simplement ce qui vous plaît.</p></details>
+    <details><summary>Comment je paie ?</summary><p>Par virement, une fois le site en ligne et validé par vous. Vous recevez une facture en bonne et due forme.</p></details>
+    <details><summary>Et si la maquette ne me plaît pas ?</summary><p>Vous ne devez rien. La maquette est offerte et sans engagement.</p></details>
+    <details><summary>Le site apparaîtra-t-il sur Google ?</summary><p>Oui : le site est déclaré à Google avec un titre, une description et vos coordonnées bien structurées. Je vous explique aussi comment relier votre fiche Google Maps à votre site.</p></details>
+  </div>
+</div></section>
+
+<section style="padding-top:0"><div class="conteneur">
+  <div class="moi">
+    <div class="avatar">AG</div>
+    <div>
+      <h2 style="font-size:34px">Qui suis-je ?</h2>
+      <p>Je m'appelle Abdallah Gsair, développeur indépendant à Villeneuve-la-Garenne (entreprise Hakkanodev). Je conçois des applications et des sites pour les commerces et artisans du coin. J'ai notamment réalisé le logiciel de gestion d'une boutique de L'Île-Saint-Denis : caisse, stock, atelier de réparation.</p>
+      <p>Je travaille avec des outils d'intelligence artificielle : c'est ce qui me permet de livrer vite et à petit prix, sans rien sacrifier à la qualité.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="contact" id="contact"><div class="conteneur">
+  <h2>Recevez la maquette de votre site, gratuitement</h2>
+  <p class="intro">Envoyez-moi le nom et la ville de votre commerce. Je vous renvoie une maquette sous 48 h, sans engagement.</p>
+  <div class="actions">
+    <a class="bouton plein" href="mailto:abdallah.gsair@gmail.com?subject=Maquette%20gratuite%20pour%20mon%20commerce&body=Nom%20du%20commerce%20%3A%20%0AVille%20%3A%20%0AM%C3%A9tier%20%3A%20%0ASite%20actuel%20(si%20vous%20en%20avez%20un)%20%3A%20">Écrire à abdallah.gsair@gmail.com</a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="conteneur">
+  <span>© 2026 Hakkanodev — Abdallah Gsair, entrepreneur individuel · SIRET 849 304 357 00023</span>
+  <a href="mentions-legales.html">Mentions légales</a>
+</div></footer>
+</body>
+</html>
