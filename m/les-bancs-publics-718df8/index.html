@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--fond:#FBF6EF;--surface:#FFFFFF;--encre:#2B1D14;--doux:#6F5B4B;--accent:#C2410C;--sur-accent:#FFFFFF;--trait:#EADFD2;
---titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:20px}
+--titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:20px;--ok:#16A34A;--ko:#B91C1C}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--fond);color:var(--encre);font:400 17px/1.6 var(--texte);-webkit-font-smoothing:antialiased;padding-bottom:88px}
@@ -105,9 +105,12 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 .apercu b{font-weight:700}
 .apercu small{display:block;opacity:.7;font-size:12px;margin-top:2px}
 .apercu a{background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-weight:700;text-decoration:none;white-space:nowrap}
+[data-ambiance=sombre] .apercu{background:#F4EEE5;color:#111}[data-ambiance=sombre] .apercu a{background:#111;color:#fff}
+.barre-mobile{display:none}
 @media (max-width:900px){
   nav.liens{display:none}
   .marque img+span{display:none}
+  header.barre .bouton{display:none}
   .hero-plein{padding:72px 0 40px;min-height:0}
   .hero-plein .conteneur,.hero-scinde .conteneur,.hero-simple .conteneur,.apropos,.infos{grid-template-columns:1fr}
   .hero-scinde{padding:36px 0}
@@ -119,12 +122,18 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   .galerie,.galerie.n2{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
   .galerie img:first-child{grid-column:span 2;grid-row:auto}
   .bande{padding:32px;border-radius:24px}
-  .apercu{font-size:13px}
-  .apercu .detail{display:none}
+  body{padding-bottom:84px}
+  .avec-apercu{padding-top:44px}
+  .avec-apercu header.barre{top:44px}
+  .apercu{top:0;bottom:auto;left:0;right:0;border-radius:0;padding:8px 12px;font-size:12px;gap:8px;box-shadow:none}
+  .apercu .detail,.apercu small{display:none}
+  .apercu a{padding:7px 12px;font-size:12px}
+  .barre-mobile{display:flex;gap:10px;position:fixed;left:12px;right:12px;bottom:12px;z-index:40}
+  .barre-mobile .bouton{flex:1;padding:15px 10px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
 }
 </style>
 </head>
-<body>
+<body data-ambiance="clair" class="avec-apercu">
 <header class="barre"><div class="conteneur">
   <a class="marque" href="#"><span>Les Bancs Publics</span></a>
   <nav class="liens"><a href="#services">La carte</a><a href="#images">En images</a><a href="#infos">Horaires & accès</a></nav>
@@ -191,14 +200,20 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   
 </div></footer>
 
+<div class="barre-mobile"><a class="bouton plein" href="tel:+33980763671"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Appeler</a><a class="bouton contour" href="https://www.google.com/maps/dir/?api=1&destination=48.8909699,2.3839029" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Itinéraire</a></div>
 <div class="apercu"><div><b>Maquette réalisée pour Les Bancs Publics</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span><small>Photos d’illustration, à remplacer par les vôtres.</small></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Les%20Bancs%20Publics">Je le veux</a></div>
 <script>
-(function(){var d=new Date().getDay(),l=document.querySelector('tr[data-jsem="'+d+'"]');if(!l)return;l.classList.add('aujourdhui');
-var h=l.children[1].textContent,n=new Date(),min=n.getHours()*60+n.getMinutes(),ouvert=/24 h/.test(h),connu=ouvert||/^Fermé$/.test(h)||/\d{2}h\d{2} – \d{2}h\d{2}/.test(h);
-(h.match(/\d{2}h\d{2} – \d{2}h\d{2}/g)||[]).forEach(function(p){var t=p.match(/\d{2}/g).map(Number);var a=t[0]*60+t[1],b=t[2]*60+t[3];if(b<=a)b+=1440;if(min>=a&&min<b)ouvert=true});
-document.querySelectorAll('[data-etat]').forEach(function(e){if(!connu){e.textContent='Aujourd’hui';return}e.textContent=ouvert?'Ouvert maintenant':'Fermé actuellement';e.style.color=ouvert?'#16a34a':'#b91c1c'});
-document.querySelectorAll('[data-jour]').forEach(function(e){e.textContent="Aujourd’hui : "+h});
-document.querySelectorAll('[data-jour-court]').forEach(function(e){e.textContent=(connu&&ouvert?'Ouvert · ':'')+"Aujourd’hui : "+h})})();
+(function(){var J=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'],L={};document.querySelectorAll('tr[data-jsem]').forEach(function(t){L[+t.dataset.jsem]=t});
+var n=new Date(),d=n.getDay(),min=n.getHours()*60+n.getMinutes();
+function plages(x){var r=[];(x.match(/\d{2}h\d{2} – \d{2}h\d{2}/g)||[]).forEach(function(p){var t=p.match(/\d{2}/g).map(Number);var a=t[0]*60+t[1],b=t[2]*60+t[3];if(b<=a)b+=1440;r.push([a,b])});return r}
+function hm(m){m=m%1440;var h=Math.floor(m/60),k=m%60;return h+'h'+(k<10?'0':'')+k}
+var l=L[d];if(!l)return;l.classList.add('aujourdhui');var h=l.children[1].textContent,tout=/24 h/.test(h),pl=plages(h),connu=tout||/^Fermé$/.test(h)||pl.length>0;
+var ouvert=tout,fermeA=null,ouvreA=null,jour='';pl.forEach(function(p){if(min>=p[0]&&min<p[1]){ouvert=true;fermeA=p[1]}});
+if(!ouvert){var pr=pl.filter(function(p){return p[0]>min})[0];if(pr){ouvreA=pr[0]}else{for(var k=1;k<=7&&ouvreA===null;k++){var lk=L[(d+k)%7];if(!lk)break;var pk=plages(lk.children[1].textContent);if(pk.length){ouvreA=pk[0][0];jour=k===1?'demain':J[(d+k)%7]}}}}
+var etat=!connu?'Aujourd’hui':ouvert?('Ouvert'+(fermeA!==null?' · ferme à '+hm(fermeA):'')):('Fermé'+(ouvreA!==null?' · ouvre '+(jour?jour+' ':'')+'à '+hm(ouvreA):''));
+document.querySelectorAll('[data-etat]').forEach(function(e){e.textContent=etat;if(connu)e.style.color=ouvert?'var(--ok)':'var(--ko)'});
+document.querySelectorAll('[data-jour]').forEach(function(e){e.textContent='Aujourd’hui : '+h});
+document.querySelectorAll('[data-jour-court]').forEach(function(e){e.textContent=!connu?'Aujourd’hui : '+h:/^Fermé$/.test(h)?etat:etat+' · '+h})})();
 </script>
 </body>
 </html>

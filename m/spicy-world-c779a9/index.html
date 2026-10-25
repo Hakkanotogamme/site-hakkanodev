@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--fond:#FBF6EF;--surface:#FFFFFF;--encre:#2B1D14;--doux:#6F5B4B;--accent:#B45309;--sur-accent:#FFFFFF;--trait:#EADFD2;
---titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:20px}
+--titre:'Fraunces',Georgia,serif;--texte:'Inter',system-ui,sans-serif;--rayon:20px;--ok:#16A34A;--ko:#B91C1C}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--fond);color:var(--encre);font:400 17px/1.6 var(--texte);-webkit-font-smoothing:antialiased;padding-bottom:88px}
@@ -105,9 +105,12 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 .apercu b{font-weight:700}
 .apercu small{display:block;opacity:.7;font-size:12px;margin-top:2px}
 .apercu a{background:#fff;color:#111;border-radius:999px;padding:10px 16px;font-weight:700;text-decoration:none;white-space:nowrap}
+[data-ambiance=sombre] .apercu{background:#F4EEE5;color:#111}[data-ambiance=sombre] .apercu a{background:#111;color:#fff}
+.barre-mobile{display:none}
 @media (max-width:900px){
   nav.liens{display:none}
   .marque img+span{display:none}
+  header.barre .bouton{display:none}
   .hero-plein{padding:72px 0 40px;min-height:0}
   .hero-plein .conteneur,.hero-scinde .conteneur,.hero-simple .conteneur,.apropos,.infos{grid-template-columns:1fr}
   .hero-scinde{padding:36px 0}
@@ -119,12 +122,18 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   .galerie,.galerie.n2{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
   .galerie img:first-child{grid-column:span 2;grid-row:auto}
   .bande{padding:32px;border-radius:24px}
-  .apercu{font-size:13px}
-  .apercu .detail{display:none}
+  body{padding-bottom:84px}
+  .avec-apercu{padding-top:44px}
+  .avec-apercu header.barre{top:44px}
+  .apercu{top:0;bottom:auto;left:0;right:0;border-radius:0;padding:8px 12px;font-size:12px;gap:8px;box-shadow:none}
+  .apercu .detail,.apercu small{display:none}
+  .apercu a{padding:7px 12px;font-size:12px}
+  .barre-mobile{display:flex;gap:10px;position:fixed;left:12px;right:12px;bottom:12px;z-index:40}
+  .barre-mobile .bouton{flex:1;padding:15px 10px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
 }
 </style>
 </head>
-<body>
+<body data-ambiance="clair" class="avec-apercu">
 <header class="barre"><div class="conteneur">
   <a class="marque" href="#"><span>Spicy World</span></a>
   <nav class="liens"><a href="#services">La carte</a><a href="#images">En images</a><a href="#infos">Horaires & accès</a></nav>
@@ -192,6 +201,7 @@ footer .conteneur{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
   
 </div></footer>
 
+<div class="barre-mobile"><a class="bouton plein" href="tel:+33147399805"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>Appeler</a><a class="bouton contour" href="https://www.google.com/maps/dir/?api=1&destination=48.9014087,2.3088807" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>Itinéraire</a></div>
 <div class="apercu"><div><b>Maquette réalisée pour Spicy World</b><span class="detail"> — pas encore en ligne. Ce site peut être le vôtre en 48 h, 249 € tout compris.</span><small>Photos d’illustration, à remplacer par les vôtres.</small></div><a href="mailto:contact@hakkanodev.fr?subject=Je%20veux%20mon%20site%20%E2%80%94%20Spicy%20World">Je le veux</a></div>
 
 </body>
