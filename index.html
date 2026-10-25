@@ -38,6 +38,7 @@ nav a{text-decoration:none;color:var(--doux)} nav a:hover{color:var(--encre)}
 .bouton:hover{transform:translateY(-1px)}
 .plein{background:var(--accent);color:#fff;box-shadow:0 10px 24px -12px var(--accent)} .plein:hover{background:var(--accent-fonce)}
 .contour{border:1px solid var(--trait);background:transparent} .contour:hover{background:var(--surface)}
+.verre{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.28)} .verre:hover{background:rgba(255,255,255,.14)}
 .petit{padding:11px 18px;font-size:14px}
 .surtitre{display:block;font:700 12px/1 var(--texte);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
 h1{font:800 clamp(40px,6.2vw,76px)/1 var(--titre);letter-spacing:-.035em}
@@ -171,6 +172,7 @@ footer .gauche{display:flex;align-items:center;gap:10px}
   <symbol id="i-cle" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2 2"/></symbol>
   <symbol id="i-lieu" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
   <symbol id="i-personne" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M9 9.5c.3 2.5 2 4.2 4.5 4.5l1.5-1.5-2-1-1 1a4 4 0 0 1-1.5-1.5l1-1-1-2z"/></symbol>
 </defs></svg>
 
 <header><div class="conteneur">
@@ -278,7 +280,7 @@ footer .gauche{display:flex;align-items:center;gap:10px}
     <div class="faits">
       <span><svg class="ico"><use href="#i-lieu"/></svg>Paris &amp; proche banlieue</span>
       <span><svg class="ico"><use href="#i-personne"/></svg>Un seul interlocuteur</span>
-      <span><svg class="ico"><use href="#i-mail"/></svg>Réponse par mail sous 24 h (jours ouvrés)</span>
+      <span><svg class="ico"><use href="#i-mail"/></svg>Réponse par mail ou WhatsApp sous 24 h (jours ouvrés)</span>
     </div>
   </div>
 </div></section>
@@ -288,8 +290,11 @@ footer .gauche{display:flex;align-items:center;gap:10px}
     <span class="puce">Sans engagement</span>
     <h2>Recevez la maquette de votre site, gratuitement</h2>
     <p>Envoyez simplement le nom de votre commerce, votre ville et votre activité. Je vous prépare un aperçu concret sous 48 h.</p>
-    <a class="bouton plein" href="mailto:contact@hakkanodev.fr?subject=Maquette%20gratuite%20pour%20mon%20commerce&body=Nom%20du%20commerce%20%3A%20%0AVille%20%3A%20%0AM%C3%A9tier%20%3A%20%0ASite%20actuel%20(si%20vous%20en%20avez%20un)%20%3A%20"><svg class="ico"><use href="#i-mail"/></svg>Écrire à contact@hakkanodev.fr</a>
-    <p class="sous">Réponse sous 24 h, jours ouvrés.</p>
+    <div class="actions" style="justify-content:center">
+      <a class="bouton plein" href="mailto:contact@hakkanodev.fr?subject=Maquette%20gratuite%20pour%20mon%20commerce&body=Nom%20du%20commerce%20%3A%20%0AVille%20%3A%20%0AM%C3%A9tier%20%3A%20%0ASite%20actuel%20(si%20vous%20en%20avez%20un)%20%3A%20"><svg class="ico"><use href="#i-mail"/></svg>Écrire à contact@hakkanodev.fr</a>
+      <a class="bouton verre" href="https://wa.me/33763534037?text=Bonjour%2C%20je%20voudrais%20une%20maquette%20gratuite%20pour%20mon%20commerce%20%3A%20" target="_blank" rel="noopener"><svg class="ico"><use href="#i-wa"/></svg>Écrire sur WhatsApp</a>
+    </div>
+    <p class="sous">Réponse sous 24 h, jours ouvrés. WhatsApp : 07 63 53 40 37 (messages uniquement).</p>
   </div>
 </div></section>
 </main>
