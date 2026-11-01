@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevisPilot : aide et contact</title>
+<meta name="description" content="Aide et contact pour DevisPilot, l'appli iPhone de devis et de factures pour les micro-entrepreneurs.">
+<style>
+:root{--fond:#F8F9FF;--carte:#FFFFFF;--texte:#0B1C30;--doux:#4A5870;--trait:#E3E8F2;--accent:#2738F5;--teinte:#EEF1FF}
+@media (prefers-color-scheme:dark){:root{--fond:#0B0F1F;--carte:#161B2E;--texte:#EEF1FF;--doux:#AAB3CC;--trait:#2A3148;--accent:#7B86FF;--teinte:#232A4D}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fond);color:var(--texte);font:16px/1.65 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:32px 20px 56px}
+.marque{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none;font-weight:700;font-size:18px;margin-bottom:28px}
+.marque img{width:40px;height:40px;border-radius:10px}
+h1{font-size:32px;line-height:1.2;margin:0 0 6px;letter-spacing:-.3px}
+.date{color:var(--doux);margin:0 0 28px}
+.carte{background:var(--carte);border:1px solid var(--trait);border-radius:16px;padding:24px}
+h2{font-size:20px;line-height:1.3;margin:32px 0 8px}
+.carte>h2:first-child{margin-top:0}
+p,li{color:var(--texte)}
+ul{padding-left:20px}
+li{margin:6px 0}
+a{color:var(--accent)}
+hr{border:0;border-top:1px solid var(--trait);margin:32px 0}
+.tableau{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-size:13px;color:var(--doux);border-bottom:1px solid var(--texte);padding:6px 12px 6px 0}
+td{vertical-align:top;border-bottom:1px solid var(--trait);padding:8px 12px 8px 0}
+.liens{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
+.bouton{display:inline-block;background:var(--teinte);color:var(--accent);font-weight:600;text-decoration:none;border-radius:12px;padding:10px 16px}
+footer{color:var(--doux);font-size:14px;margin-top:28px}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+<a class="marque" href="./"><img src="icone.png" alt="">DevisPilot</a>
+<h1>Devis et factures sur iPhone</h1>
+<p class="date">L'appli des micro-entrepreneurs français.</p>
+<div class="carte">
+<h2>Besoin d'aide ?</h2>
+<p>Écrivez à <a href="mailto:contact@hakkanodev.fr">contact@hakkanodev.fr</a>. Nous répondons sous 48 heures, jours ouvrés.</p>
+<h2>Je ne reçois pas le code par e-mail</h2>
+<p>Regardez dans vos courriers indésirables, puis touchez « Renvoyer un code » dans l'appli.</p>
+<h2>J'ai oublié mon mot de passe</h2>
+<p>Sur l'écran de connexion, touchez « Mot de passe oublié ? ». Un code vous est envoyé par e-mail.</p>
+<h2>Je me suis trompé sur une facture</h2>
+<p>Un document émis ne se modifie pas : la loi l'interdit. Ouvrez la facture, touchez « Autres actions », puis « Annuler ou rembourser (avoir) », et refaites une facture si besoin.</p>
+<h2>Comment supprimer mon compte ?</h2>
+<p>Dans l'appli : Accueil, engrenage en haut de l'écran, puis « Supprimer mon compte ». L'appli vous propose d'abord d'exporter vos documents, que vous devez conserver.</p>
+<div class="liens"><a class="bouton" href="confidentialite.html">Confidentialité</a><a class="bouton" href="conditions.html">Conditions d'utilisation</a></div>
+</div>
+<footer>© 2026 Hakkanodev · <a href="confidentialite.html">Confidentialité</a> · <a href="conditions.html">Conditions d'utilisation</a> · <a href="../mentions-legales.html">Mentions légales</a></footer>
+</main>
+</body>
+</html>
