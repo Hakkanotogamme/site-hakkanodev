@@ -70,7 +70,7 @@ main,header,footer{position:relative;z-index:2}
 .hero{min-height:100svh;display:grid;align-items:center;padding:140px 0 90px;overflow:hidden;isolation:isolate}
 #gl{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 1.4s ease;transform:translateZ(0)}
 #gl.ok{opacity:1}
-.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 50% at 70% 30%,rgba(46,229,157,.18),transparent 70%),radial-gradient(50% 50% at 15% 80%,rgba(111,243,255,.12),transparent 70%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(42% 52% at 75% 48%,rgba(46,229,157,.20),transparent 70%),radial-gradient(50% 50% at 12% 85%,rgba(111,243,255,.10),transparent 70%),radial-gradient(30% 30% at 90% 12%,rgba(200,255,90,.07),transparent 70%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 30% 50%,rgba(7,9,12,.78),transparent 75%),linear-gradient(180deg,transparent 60%,var(--bg))}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);backdrop-filter:blur(10px);font-size:13px;color:#cfd6dc}
 .pill b{width:8px;height:8px;border-radius:50%;background:var(--a);box-shadow:0 0 0 0 rgba(46,229,157,.7);animation:ping 2s infinite}
@@ -725,113 +725,78 @@ footer a:hover{color:var(--txt)}
   form.addEventListener('submit', e => { e.preventDefault(); const t = texte(); if (t) location.href = `mailto:contact@hakkanodev.fr?subject=${encodeURIComponent(t.sujet)}&body=${encodeURIComponent(t.corps)}`; });
   $('#wa').addEventListener('click', () => { const t = texte(); if (t) open(`https://wa.me/33763534037?text=${encodeURIComponent(t.corps)}`, '_blank', 'noopener'); });
 
-  // Fond animé : lignes de niveau lumineuses (WebGL), allégé sur petit écran
-  const cv = $('#gl'), gl = cv.getContext('webgl', { antialias: false, alpha: true, powerPreference: 'high-performance' });
+  // Fond 3D : sculpture de particules (sphère, nœud, galaxie) qui se transforme, tourne et s'écarte sous la souris.
+  // Le coût dépend du nombre de points, pas de la taille de l'écran : net et fluide partout.
+  const cv = $('#gl'), gl = cv.getContext('webgl', { antialias: false, alpha: true, premultipliedAlpha: true, powerPreference: 'high-performance' });
   if (!gl) return;
-  const deriv = gl.getExtension('OES_standard_derivatives');
-  const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-  const petit = innerWidth < 700;
-  const fs = `${deriv ? '#extension GL_OES_standard_derivatives : enable\n#define DERIV\n' : ''}#define STEPS ${petit ? 34 : 52}
-precision highp float;
-uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 o;uniform float sc;uniform vec3 k[4];
-const vec3 c1=vec3(.18,.90,.62),c2=vec3(.43,.95,1.),c3=vec3(.78,1.,.35);
-float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
-float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<4;i++){s+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return s;}
-mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
-float smin(float a,float b,float k){float q=max(k-abs(a-b),0.)/k;return min(a,b)-q*q*k*.25;}
-float fbm3(vec2 p){float a=.5,s=0.;for(int i=0;i<3;i++){s+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return s*1.07;}
-float champ2(vec2 uv){vec2 p=uv*1.35+vec2(.6,0.);
-  vec2 q=p+.85*vec2(fbm3(p+vec2(0.,t*.045)),fbm3(p+vec2(5.2,-t*.038)));
-  return fbm3(q*1.15+vec2(t*.02,0.));}
-float champ(vec2 uv){vec2 p=uv*1.35+vec2(.6,0.);
-  vec2 q=p+.85*vec2(fbm(p+vec2(0.,t*.045)),fbm(p+vec2(5.2,-t*.038)));
-  return fbm(q*1.15+vec2(t*.02,0.));}
-vec3 teinte(float f){vec3 c=mix(c1,c2,smoothstep(.25,.85,f));return mix(c,c3,smoothstep(.62,.95,f));}
-vec3 lignes(vec2 uv,float f,float w){float k=f*11.,g=abs(fract(k)-.5);
-  float l=1.-smoothstep(w*.6,w*1.9+.004,g);
-  float fade=smoothstep(-.75,.55,uv.x+uv.y*.25),vig=1.-smoothstep(.35,1.25,length(uv*vec2(.75,1.)));
-  return teinte(f)*(l*.85+exp(-g*g*38.)*.28)*fade*vig+vec3(.02,.09,.07)*smoothstep(.25,.85,f)*fade*vig;}
-vec3 mp;
-float map(vec3 p){
-  float d=length(p)-.50;
-  d=smin(d,length(p-k[0])-.36,.36);
-  d=smin(d,length(p-k[1])-.31,.36);
-  d=smin(d,length(p-k[2])-.27,.36);
-  d=smin(d,length(p-k[3])-.22,.34);
-  return smin(d,length(p-mp)-.30,.45);}
-vec3 env(vec3 d){
-  vec3 c=mix(vec3(.004,.012,.012),vec3(.02,.07,.06),smoothstep(-.4,.7,d.y));
-  c+=c1*pow(max(dot(d,normalize(vec3(.8,.6,.3))),0.),14.)*2.6;
-  c+=c2*pow(max(dot(d,normalize(vec3(-.75,.35,.45))),0.),9.)*1.5;
-  c+=c3*pow(max(dot(d,normalize(vec3(.15,-.85,.35))),0.),20.)*1.4;
-  c+=vec3(.7,1.,.92)*smoothstep(.93,.995,sin(d.y*8.+d.x*2.5+1.))*.35;
-  return c;}
-void main(){
-  vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;
-  float f=champ(uv)+.14*exp(-dot(uv-m,uv-m)*5.);
-#ifdef DERIV
-  float w=fwidth(f*11.)*1.1;
-#else
-  float w=.035;
-#endif
-  vec2 u=(uv-o.xy)/o.z;
-  vec3 col=lignes(uv,f,w)*(.5+.5*smoothstep(.2,1.3,length(u)));
-  col+=vec3(.015,.10,.075)*exp(-dot(u,u)*1.3);
-  vec3 ro=vec3(0.,0.,3.4),rd=normalize(vec3(u,-1.9));
-  vec2 mq=(m-o.xy)/o.z*1.63;mq*=min(1.,1.25/max(length(mq),.001));mp=vec3(mq,.35);
-  float R=1.62+sc*1.25,b=dot(ro,rd),cc=dot(ro,ro)-R*R,hh=b*b-cc;
-  if(hh>0.){
-    float s=sqrt(hh),tt=-b-s,tf=-b+s,dm=1e3;bool hit=false;
-    for(int i=0;i<STEPS;i++){float d=map(ro+rd*tt);dm=min(dm,d);if(d<.0022*tt){hit=true;break;}tt+=d;if(tt>tf)break;}
-    if(hit){
-      vec3 p=ro+rd*tt;vec2 e=vec2(.0018,-.0018);
-      vec3 nn=normalize(e.xyy*map(p+e.xyy)+e.yyx*map(p+e.yyx)+e.yxy*map(p+e.yxy)+e.xxx*map(p+e.xxx));
-      float nv=max(dot(nn,-rd),0.),fr=pow(1.-nv,3.);
-      vec3 rf=reflect(rd,nn);
-      vec3 g=env(rf)*(.22+.95*fr);
-      vec2 ur=uv+nn.xy*.16*o.z;
-      g+=lignes(ur,champ2(ur),.05)*1.5*(1.-fr)+env(refract(rd,nn,.72))*.22*(1.-fr);
-      vec3 ir=mix(mix(c1,c2,.5+.5*sin(nv*7.+nn.y*3.+t*.3)),c3,.5+.5*sin(nv*5.-nn.x*4.+1.));
-      g+=ir*fr*.6;
-      g+=pow(max(dot(rf,normalize(vec3(.5,.7,.5))),0.),70.)*1.3;
-      g+=vec3(.004,.028,.022);
-      col=1.-exp(-g*1.55);
-    }else col+=mix(c1,c2,.5)*(exp(-dm*20.)*.3+exp(-dm*140.)*.7);
+  const petit = innerWidth < 700, N = petit ? 7000 : 15000, POUSSIERE = Math.round(N * .07);
+  const a0 = new Float32Array(N * 3), a1 = new Float32Array(N * 3), a2 = new Float32Array(N * 3), rn = new Float32Array(N * 2);
+  const R = Math.random, gauss = () => (R() + R() + R() + R() - 2) / 2;
+  const noeud = u => { const c = 2 + Math.cos(3 * u); return [c * Math.cos(2 * u) * .43, c * Math.sin(2 * u) * .43, Math.sin(3 * u) * .43]; };
+  for (let i = 0; i < N; i++) { const k = i * 3; rn[i * 2] = R(); rn[i * 2 + 1] = R();
+    if (i < POUSSIERE) { const x = (R() - .5) * 7, y = (R() - .5) * 4.4, z = R() * 3.4 - 2.4; a0[k] = a1[k] = a2[k] = x; a0[k + 1] = a1[k + 1] = a2[k + 1] = y; a0[k + 2] = a1[k + 2] = a2[k + 2] = z; continue; }
+    // sphère
+    const y = 1 - 2 * (i + .5) / N, ray = Math.sqrt(1 - y * y), th = i * 2.399963, r0 = 1.18 + gauss() * .03;
+    a0[k] = Math.cos(th) * ray * r0; a0[k + 1] = y * r0; a0[k + 2] = Math.sin(th) * ray * r0;
+    // nœud torique
+    const u = R() * 6.2832, c = noeud(u), c2 = noeud(u + .01), tx = c2[0] - c[0], ty = c2[1] - c[1], tz = c2[2] - c[2];
+    let nx = ty, ny = -tx, nz = 0, l = Math.hypot(nx, ny) || 1; nx /= l; ny /= l;
+    let bx = ty * nz - tz * ny, by = tz * nx - tx * nz, bz = tx * ny - ty * nx; l = Math.hypot(bx, by, bz) || 1; bx /= l; by /= l; bz /= l;
+    const v = R() * 6.2832, rt = .15 + gauss() * .02, cv2 = Math.cos(v) * rt, sv = Math.sin(v) * rt;
+    a1[k] = c[0] + nx * cv2 + bx * sv; a1[k + 1] = c[1] + ny * cv2 + by * sv; a1[k + 2] = c[2] + nz * cv2 + bz * sv;
+    // galaxie spirale
+    const rg = Math.pow(R(), .62) * 1.55, bras = Math.floor(R() * 3) * 2.0944, ang = bras + rg * 2.3 + gauss() * (.5 - rg * .18), ep = gauss() * .1 * (1.7 - rg);
+    a2[k] = Math.cos(ang) * rg; a2[k + 1] = ep * .8 + Math.sin(ang) * rg * .6; a2[k + 2] = Math.sin(ang) * rg * .8 - ep * .5;
   }
-  gl_FragColor=vec4(col,1.);
+  const vs = `attribute vec3 a0,a1,a2;attribute vec2 rn;
+uniform float t,ph,sc,px,asp;uniform vec2 m;uniform vec3 o;
+varying vec3 vc;varying float va;
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+void main(){
+  float s=floor(ph),f=ph-s,g=clamp(f*1.7-rn.x*.7,0.,1.);g=g*g*(3.-2.*g);
+  vec3 A=s<.5?a0:(s<1.5?a1:a2),B=s<.5?a1:(s<1.5?a2:a0);
+  vec3 p=mix(A,B,g);
+  float w=sin(3.14159*g);
+  p.xz*=rot(w*(1.1+rn.y*1.6));p*=1.+w*.28*rn.y;
+  p+=.03*sin(p.yzx*3.5+t*.8+rn.x*6.283);
+  p*=1.+sc*1.5;
+  p.xz*=rot(t*.17+m.x*.35);p.yz*=rot(.3+m.y*.3);
+  float k=1.9/(4.2-p.z);
+  vec2 q=p.xy*k*o.z+o.xy;
+  vec2 dv=q-m;q+=normalize(dv+vec2(1e-4))*.17*exp(-dot(dv,dv)*9.);
+  gl_Position=vec4(q.x/asp,q.y,0.,1.);
+  float dp=clamp((p.z+1.6)/3.2,0.,1.);
+  gl_PointSize=max(1.,(1.+2.6*rn.y*rn.y)*px*k*2.3*o.z*(.7+.7*dp));
+  vec3 c1=vec3(.18,.90,.62),c2=vec3(.43,.95,1.),c3=vec3(.78,1.,.35);
+  vc=mix(mix(c1,c2,smoothstep(-1.,1.,p.y*1.2+.5*sin(rn.x*9.))),c3,step(.93,rn.y));
+  va=(.22+.78*dp)*(1.-sc*.75)*(.5+.5*rn.x);
 }`;
+  const fs = 'precision mediump float;varying vec3 vc;varying float va;void main(){vec2 c=gl_PointCoord-.5;float a=smoothstep(.25,.01,dot(c,c))*va;gl_FragColor=vec4(vc*a,a);}';
   const sh = (ty, src) => { const s = gl.createShader(ty); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
-  const a = sh(gl.VERTEX_SHADER, vs), b = sh(gl.FRAGMENT_SHADER, fs); if (!a || !b) return;
-  const pr = gl.createProgram(); gl.attachShader(pr, a); gl.attachShader(pr, b); gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return; gl.useProgram(pr);
-  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-  const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uM = gl.getUniformLocation(pr, 'm'), uO = gl.getUniformLocation(pr, 'o'), uS = gl.getUniformLocation(pr, 'sc'), uK = gl.getUniformLocation(pr, 'k');
-  const K = new Float32Array(12);
-  const hero = $('#hero'); let W = 0, Hh = 0, mx = .35, my = .1, cx = mx, cy = my, vu = true, actif = true;
-  // Résolution adaptative : on vise une animation fluide, la netteté s'ajuste à la machine
-  const qMax = Math.min(devicePixelRatio || 1, 1.5) * (petit ? .6 : .75), qMin = .28; let q = Math.min(qMax, petit ? .45 : .55);
-  const taille = () => { W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; gl.viewport(0, 0, W, Hh); };
+  const A = sh(gl.VERTEX_SHADER, vs), B = sh(gl.FRAGMENT_SHADER, fs); if (!A || !B) return;
+  const pr = gl.createProgram(); gl.attachShader(pr, A); gl.attachShader(pr, B); gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return; gl.useProgram(pr);
+  const attr = (nom, data, n) => { const l = gl.getAttribLocation(pr, nom); if (l < 0) return; gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW); gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, n, gl.FLOAT, false, 0, 0); };
+  attr('a0', a0, 3); attr('a1', a1, 3); attr('a2', a2, 3); attr('rn', rn, 2);
+  const U = n => gl.getUniformLocation(pr, n), uT = U('t'), uPh = U('ph'), uSc = U('sc'), uPx = U('px'), uAsp = U('asp'), uM = U('m'), uO = U('o');
+  gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE); gl.clearColor(0, 0, 0, 0);
+  const hero = $('#hero'); let W = 0, Hh = 0, asp = 1, mx = 9, my = 9, cx = 9, cy = 9, vu = true, actif = true;
+  const taille = () => { const q = Math.min(devicePixelRatio || 1, 2); W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q));
+    cv.width = W; cv.height = Hh; asp = W / Hh; gl.viewport(0, 0, W, Hh); };
   taille(); addEventListener('resize', taille);
-  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = ((e.clientX - r.left) - r.width / 2) / r.height; my = -((e.clientY - r.top) - r.height / 2) / r.height; }, { passive: true });
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = ((e.clientX - r.left) / r.width * 2 - 1) * asp; my = -((e.clientY - r.top) / r.height * 2 - 1); }, { passive: true });
+  hero.addEventListener('pointerleave', () => { mx = 9; my = 9; });
   new IntersectionObserver(es => { vu = es[0].isIntersecting; }).observe(hero);
   document.addEventListener('visibilitychange', () => { actif = !document.hidden; });
-  let avant = 0, moy = 16, compte = 0;
-  const dessin = ms => { if (vu && actif) { cx += (mx - cx) * .05; cy += (my - cy) * .05;
-      const t = ms / 1000, sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = W / Hh > 1.15, e = 1.18 + sc * 1.1;
-      // centres des sphères, tournés ici plutôt que pour chaque pixel
-      const L = [[.78 * Math.sin(t * .50), .62 * Math.cos(t * .43), .50 * Math.sin(t * .37 + 1)], [.70 * Math.cos(t * .39 + 2), .66 * Math.sin(t * .47 + .5), .60 * Math.cos(t * .31)],
-        [.60 * Math.sin(t * .33 + 4), .80 * Math.sin(t * .29 + 2), .55 * Math.cos(t * .41 + 3)], [.85 * Math.cos(t * .27 + 1), .40 * Math.cos(t * .52 + 4), .50 * Math.sin(t * .45 + 2)]];
-      const A = -(t * .16 + cx * .7), B = -(.25 + cy * .45), ca = Math.cos(A), sa = Math.sin(A), cb = Math.cos(B), sb = Math.sin(B);
-      L.forEach((v, n) => { const x = v[0] * e, y0 = v[1] * e, z0 = v[2] * e, y = y0 * cb - z0 * sb, z1 = y0 * sb + z0 * cb; K[n * 3] = x * ca - z1 * sa; K[n * 3 + 1] = y; K[n * 3 + 2] = x * sa + z1 * ca; });
-      gl.uniform3fv(uK, K);
-      gl.uniform3f(uO, large ? .44 : .2, (large ? .02 : .27) + sc * .3, large ? .5 : .38); gl.uniform1f(uS, sc);
-      gl.uniform2f(uR, W, Hh); gl.uniform1f(uT, t); gl.uniform2f(uM, cx, cy); gl.drawArrays(gl.TRIANGLES, 0, 3);
-      if (avant) { const dt = Math.min(100, ms - avant); moy += (dt - moy) * .1;
-        if (++compte > 12) { compte = 0; if (moy > 21 && q > qMin) { q = Math.max(qMin, q * (moy > 40 ? .65 : .85)); taille(); } else if (moy < 12.5 && q < qMax) { q = Math.min(qMax, q * 1.08); taille(); } } }
-      avant = ms; } else avant = 0;
+  const CYCLE = 7.5, PAUSE = 4.6;
+  const dessin = ms => { if (vu && actif) { const loin = Math.abs(mx) > 8; cx = loin || Math.abs(cx) > 8 ? mx : cx + (mx - cx) * .08; cy = loin || Math.abs(cy) > 8 ? my : cy + (my - cy) * .08;
+      const t = ms / 1000, tt = t % (3 * CYCLE), idx = Math.floor(tt / CYCLE), loc = tt - idx * CYCLE, ph = idx + (loc < PAUSE ? 0 : (loc - PAUSE) / (CYCLE - PAUSE));
+      const sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = asp > 1.15;
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform1f(uT, t); gl.uniform1f(uPh, calme ? 0 : ph); gl.uniform1f(uSc, sc); gl.uniform1f(uPx, Hh / 900); gl.uniform1f(uAsp, asp);
+      gl.uniform2f(uM, loin ? 0 : cx, loin ? 9 : cy); gl.uniform3f(uO, large ? asp * .56 : asp * .3, (large ? .02 : .52) + sc * .5, large ? 1.02 : .78);
+      gl.drawArrays(gl.POINTS, 0, N); }
     if (!calme) requestAnimationFrame(dessin); };
-  requestAnimationFrame(ms => { dessin(calme ? 20000 : ms); cv.classList.add('ok'); });
+  requestAnimationFrame(ms => { dessin(calme ? 2000 : ms); cv.classList.add('ok'); });
 })();
 </script>
 </body>
