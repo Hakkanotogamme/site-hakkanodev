@@ -107,7 +107,7 @@ h1 .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transiti
 
 /* services */
 .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.sv{grid-column:span 4;padding:26px;display:flex;flex-direction:column;min-height:330px}
+.sv{grid-column:span 4;padding:26px;display:flex;flex-direction:column;min-height:330px;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s;will-change:transform}
 .sv.w{grid-column:span 8}
 .sv.h{grid-column:span 6}
 .viz{height:150px;margin:-6px -6px 22px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;display:grid;place-items:center}
@@ -167,7 +167,7 @@ h1 .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transiti
 .wk-t li::before{content:"";flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;background:var(--a);box-shadow:0 0 10px var(--a)}
 .wk-v{position:relative;min-height:340px;display:grid;place-items:center;perspective:1200px;overflow:hidden;background:radial-gradient(70% 70% at 50% 50%,var(--glow,rgba(46,229,157,.2)),transparent 70%)}
 .wk-v::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%)}
-.tilt{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.tilt{transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1);will-change:transform}
 .phone{position:relative;width:206px;aspect-ratio:390/800;border-radius:38px;padding:9px;background:linear-gradient(160deg,#2b313a,#0d1014);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 50px 90px -30px rgba(0,0,0,.9),0 0 80px -20px var(--glow,rgba(46,229,157,.5))}
 .phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:30px}
 .phone::after{content:"";position:absolute;top:17px;left:50%;width:74px;height:20px;margin-left:-37px;border-radius:12px;background:#07090c}
@@ -184,13 +184,8 @@ h1 .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transiti
 .y .phone{margin-left:34%}
 /* DevisPilot */
 .d{--glow:rgba(80,110,255,.3)}
-.doc{position:relative;width:250px;padding:22px;border-radius:18px;background:#f6f7fb;color:#0d1220;box-shadow:0 50px 90px -30px rgba(0,0,0,.9),0 0 80px -20px rgba(80,110,255,.6);font-size:12px}
-.doc header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font:700 15px var(--disp)}
-.doc header img{width:34px;height:34px;border-radius:9px}
-.doc .row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #e3e6ef}
-.doc .row u{display:block;height:8px;border-radius:4px;background:#d5d9e6;text-decoration:none}
-.doc .tot{display:flex;justify-content:space-between;margin-top:14px;font:700 15px var(--disp)}
-.doc .paid{position:absolute;right:-18px;top:-16px;padding:8px 14px;border-radius:999px;background:var(--a);color:#03160d;font:600 12px var(--body);box-shadow:0 10px 30px -8px rgba(46,229,157,.8);transform:translateZ(70px) rotate(6deg)}
+.d .phone{margin-right:22%}
+.d .p2{position:absolute;margin:0;left:50%;top:50%;translate:-8% -46%;transform:translateZ(-70px) rotate(8deg) scale(.9);filter:brightness(.8)}
 /* Hakuren */
 .h{--glow:rgba(46,229,157,.22)}
 .orb{position:relative;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b6ffe3,#2ee59d 28%,#0c7a55 55%,#062a22 78%);box-shadow:0 0 120px -10px rgba(46,229,157,.75),inset -20px -30px 60px rgba(0,0,0,.55);animation:breathe 5s ease-in-out infinite}
@@ -305,6 +300,7 @@ footer a:hover{color:var(--txt)}
   .cta .btn{flex:1 1 100%;justify-content:center}
   form{grid-template-columns:1fr}
   .y .brow{display:none}.y .phone{margin-left:0}
+  .d .phone{margin-right:26%}
   .phone{width:190px}
   .steps{padding-left:46px}.step .n{left:-46px;width:34px;height:34px}.rail{left:16px}
   #halo{display:none}
@@ -458,7 +454,7 @@ footer a:hover{color:var(--txt)}
     <div class="head rv">
       <span class="eyebrow">Réalisations</span>
       <h2>Des projets conçus, développés et <em>mis en ligne</em>.</h2>
-      <p class="lead">Les produits de l'atelier Hakkanodev, du premier écran à la publication.</p>
+      <p class="lead">Les produits de l'atelier Hakkanodev, du premier écran à la publication. Les écrans de DevisPilot montrent des données de démonstration.</p>
     </div>
     <div class="works">
       <article class="card wk y rv">
@@ -484,15 +480,11 @@ footer a:hover{color:var(--txt)}
           <p>Les devis et les factures des micro-entrepreneurs, directement depuis le téléphone, avec les mentions légales françaises.</p>
           <ul><li>Devis, factures, paiements et relances</li><li>Documents conformes, non modifiables une fois émis</li><li>React Native et Supabase</li></ul>
         </div>
-        <div class="wk-v"><div class="tilt" data-tilt style="display:grid;place-items:center;position:relative">
-          <div class="doc" aria-hidden="true">
-            <span class="paid">Payée ✓</span>
-            <header><img src="../devispilot/icone.png" alt="" width="34" height="34" loading="lazy">DevisPilot</header>
-            <div class="row"><u style="width:96px"></u><u style="width:36px"></u></div>
-            <div class="row"><u style="width:120px"></u><u style="width:44px"></u></div>
-            <div class="row"><u style="width:74px"></u><u style="width:30px"></u></div>
-            <div class="tot"><span>Total</span><u style="display:block;width:70px;height:12px;border-radius:6px;background:#0d1220;align-self:center"></u></div>
-          </div>
+        <div class="wk-v"><div class="tilt" data-tilt style="width:100%;height:100%;display:grid;place-items:center;position:relative">
+          <div class="phone p2"><img src="img/dp-facture.jpg" alt="" loading="lazy" width="660" height="1434"></div>
+          <div class="phone"><img src="img/dp-accueil.jpg" alt="Écran d'accueil de DevisPilot : montant à encaisser et derniers documents" loading="lazy" width="660" height="1434"></div>
+          <span class="chip" style="left:4%;top:20%"><b>Payée</b> ✓</span>
+          <span class="chip" style="right:2%;bottom:16%;animation-delay:-3s">Devis → <b>Facture</b></span>
         </div></div>
       </article>
 
@@ -695,10 +687,13 @@ footer a:hover{color:var(--txt)}
   $$('[data-n]').forEach(el => ioN.observe(el));
 
   // Barre de progression, navigation, rail de la méthode
+  const tilts = $$('[data-tilt]');
+  const pivoter = () => { if (calme) return; tilts.forEach(t => { if (t.dataset.h) return; const r = t.parentElement.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return;
+    const k = Math.max(-1, Math.min(1, ((r.top + r.height / 2) - innerHeight / 2) / innerHeight)); t.style.transform = `rotateY(${k * -26}deg) rotateX(${k * 9}deg)`; }); };
   const bar = $('#bar'), nav = $('#nav'), rail = $('#rail'), steps = $('#steps'); let tic = false;
   const defile = () => { tic = false; const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${H > 0 ? y / H : 0})`; nav.classList.toggle('on', y > 30);
-    const r = steps.getBoundingClientRect(); rail.style.transform = `scaleY(${Math.max(0, Math.min(1, (innerHeight * .62 - r.top) / r.height))})`; };
+    const r = steps.getBoundingClientRect(); rail.style.transform = `scaleY(${Math.max(0, Math.min(1, (innerHeight * .62 - r.top) / r.height))})`; pivoter(); };
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(defile); } }, { passive: true }); defile();
 
   if (fin && !calme) {
@@ -710,9 +705,13 @@ footer a:hover{color:var(--txt)}
     $$('.card').forEach(c => c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - r.left + 'px'); c.style.setProperty('--my', e.clientY - r.top + 'px'); }, { passive: true }));
     // Inclinaison 3D des visuels
     $$('[data-tilt]').forEach(t => { const zone = t.closest('.wk-v');
-      zone.addEventListener('pointermove', e => { const r = zone.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      zone.addEventListener('pointermove', e => { t.dataset.h = 1; const r = zone.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
         t.style.transform = `rotateY(${x * 16}deg) rotateX(${-y * 12}deg)`; }, { passive: true });
-      zone.addEventListener('pointerleave', () => { t.style.transform = ''; }); });
+      zone.addEventListener('pointerleave', () => { delete t.dataset.h; pivoter(); }); });
+    // Cartes de services : légère bascule 3D
+    $$('.sv').forEach(c => { c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        c.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`; }, { passive: true });
+      c.addEventListener('pointerleave', () => { c.style.transform = ''; }); });
     // Boutons aimantés
     $$('.mag').forEach(b => { b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect();
         b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; }, { passive: true });
@@ -732,34 +731,75 @@ footer a:hover{color:var(--txt)}
   if (!gl) return;
   const deriv = gl.getExtension('OES_standard_derivatives');
   const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-  const fs = `${deriv ? '#extension GL_OES_standard_derivatives : enable\n#define DERIV\n' : ''}precision highp float;
-uniform vec2 r;uniform float t;uniform vec2 m;
+  const petit = innerWidth < 700;
+  const fs = `${deriv ? '#extension GL_OES_standard_derivatives : enable\n#define DERIV\n' : ''}#define STEPS ${petit ? 44 : 84}
+precision highp float;
+uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 o;uniform float sc;
+const vec3 c1=vec3(.18,.90,.62),c2=vec3(.43,.95,1.),c3=vec3(.78,1.,.35);
 float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
 float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<4;i++){s+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return s;}
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+float smin(float a,float b,float k){float q=max(k-abs(a-b),0.)/k;return min(a,b)-q*q*k*.25;}
+float champ(vec2 uv){vec2 p=uv*1.35+vec2(.6,0.);
+  vec2 q=p+.85*vec2(fbm(p+vec2(0.,t*.045)),fbm(p+vec2(5.2,-t*.038)));
+  return fbm(q*1.15+vec2(t*.02,0.));}
+vec3 teinte(float f){vec3 c=mix(c1,c2,smoothstep(.25,.85,f));return mix(c,c3,smoothstep(.62,.95,f));}
+vec3 lignes(vec2 uv,float f,float w){float k=f*11.,g=abs(fract(k)-.5);
+  float l=1.-smoothstep(w*.6,w*1.9+.004,g);
+  float fade=smoothstep(-.75,.55,uv.x+uv.y*.25),vig=1.-smoothstep(.35,1.25,length(uv*vec2(.75,1.)));
+  return teinte(f)*(l*.85+exp(-g*g*38.)*.28)*fade*vig+vec3(.02,.09,.07)*smoothstep(.25,.85,f)*fade*vig;}
+vec3 mp;
+float map(vec3 p){
+  float d2=length(p-mp)-.30;
+  p.xz*=rot(t*.16+m.x*.7);p.yz*=rot(.25+m.y*.45);
+  float e=1.18+sc*1.1;
+  float d=length(p)-.50;
+  d=smin(d,length(p-e*vec3(.78*sin(t*.50),.62*cos(t*.43),.50*sin(t*.37+1.)))-.36,.36);
+  d=smin(d,length(p-e*vec3(.70*cos(t*.39+2.),.66*sin(t*.47+.5),.60*cos(t*.31)))-.31,.36);
+  d=smin(d,length(p-e*vec3(.60*sin(t*.33+4.),.80*sin(t*.29+2.),.55*cos(t*.41+3.)))-.27,.36);
+  d=smin(d,length(p-e*vec3(.85*cos(t*.27+1.),.40*cos(t*.52+4.),.50*sin(t*.45+2.)))-.22,.34);
+  d+=.02*sin(5.*p.x+t*.9)*sin(5.*p.y-t*.7)*sin(5.*p.z+t*.5);
+  return smin(d,d2,.45);}
+vec3 env(vec3 d){
+  vec3 c=mix(vec3(.004,.012,.012),vec3(.02,.07,.06),smoothstep(-.4,.7,d.y));
+  c+=c1*pow(max(dot(d,normalize(vec3(.8,.6,.3))),0.),14.)*2.6;
+  c+=c2*pow(max(dot(d,normalize(vec3(-.75,.35,.45))),0.),9.)*1.5;
+  c+=c3*pow(max(dot(d,normalize(vec3(.15,-.85,.35))),0.),20.)*1.4;
+  c+=vec3(.7,1.,.92)*smoothstep(.93,.995,sin(d.y*8.+d.x*2.5+1.))*.35;
+  return c;}
 void main(){
   vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;
-  vec2 p=uv*1.35+vec2(.6,0.);
-  float d=length(uv-m);
-  vec2 q=p+.85*vec2(fbm(p+vec2(0.,t*.045)),fbm(p+vec2(5.2,-t*.038)));
-  float f=fbm(q*1.15+vec2(t*.02,0.))+.22*exp(-d*d*5.);
-  float k=f*11.;
-  float g=abs(fract(k)-.5);
+  float f=champ(uv)+.14*exp(-dot(uv-m,uv-m)*5.);
 #ifdef DERIV
-  float w=fwidth(k)*1.1;
+  float w=fwidth(f*11.)*1.1;
 #else
   float w=.035;
 #endif
-  float line=1.-smoothstep(w*.6,w*1.9+.004,g);
-  float glow=exp(-g*g*38.)*.28;
-  vec3 c1=vec3(.18,.90,.62),c2=vec3(.43,.95,1.),c3=vec3(.78,1.,.35);
-  float s=smoothstep(.25,.85,f);
-  vec3 col=mix(c1,c2,s);col=mix(col,c3,smoothstep(.62,.95,f));
-  float fade=smoothstep(-.75,.55,uv.x+uv.y*.25);
-  float vig=1.-smoothstep(.35,1.25,length(uv*vec2(.75,1.)));
-  float a=(line*.85+glow)*fade*vig*(.55+.9*exp(-d*d*3.));
-  col*=a;
-  col+=vec3(.02,.09,.07)*s*fade*vig;
+  vec2 u=(uv-o.xy)/o.z;
+  vec3 col=lignes(uv,f,w)*(.5+.5*smoothstep(.2,1.3,length(u)));
+  col+=vec3(.015,.10,.075)*exp(-dot(u,u)*1.3);
+  vec3 ro=vec3(0.,0.,3.4),rd=normalize(vec3(u,-1.9));
+  vec2 mq=(m-o.xy)/o.z*1.63;mq*=min(1.,1.25/max(length(mq),.001));mp=vec3(mq,.35);
+  float R=1.8+sc*1.2,b=dot(ro,rd),cc=dot(ro,ro)-R*R,hh=b*b-cc;
+  if(hh>0.){
+    float s=sqrt(hh),tt=-b-s,tf=-b+s,dm=1e3;bool hit=false;
+    for(int i=0;i<STEPS;i++){float d=map(ro+rd*tt);dm=min(dm,d);if(d<.0016*tt){hit=true;break;}tt+=d*.92;if(tt>tf)break;}
+    if(hit){
+      vec3 p=ro+rd*tt;vec2 e=vec2(.0018,-.0018);
+      vec3 nn=normalize(e.xyy*map(p+e.xyy)+e.yyx*map(p+e.yyx)+e.yxy*map(p+e.yxy)+e.xxx*map(p+e.xxx));
+      float nv=max(dot(nn,-rd),0.),fr=pow(1.-nv,3.);
+      vec3 rf=reflect(rd,nn);
+      vec3 g=env(rf)*(.22+.95*fr);
+      vec2 ur=uv+nn.xy*.16*o.z;
+      g+=lignes(ur,champ(ur),.05)*1.5*(1.-fr)+env(refract(rd,nn,.72))*.22*(1.-fr);
+      vec3 ir=mix(mix(c1,c2,.5+.5*sin(nv*7.+nn.y*3.+t*.3)),c3,.5+.5*sin(nv*5.-nn.x*4.+1.));
+      g+=ir*fr*.6;
+      g+=pow(max(dot(rf,normalize(vec3(.5,.7,.5))),0.),70.)*1.3;
+      g+=vec3(.004,.028,.022);
+      col=1.-exp(-g*1.55);
+    }else col+=mix(c1,c2,.5)*(exp(-dm*20.)*.3+exp(-dm*140.)*.7);
+  }
   gl_FragColor=vec4(col,1.);
 }`;
   const sh = (ty, src) => { const s = gl.createShader(ty); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
@@ -767,15 +807,17 @@ void main(){
   const pr = gl.createProgram(); gl.attachShader(pr, a); gl.attachShader(pr, b); gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return; gl.useProgram(pr);
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uM = gl.getUniformLocation(pr, 'm');
+  const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uM = gl.getUniformLocation(pr, 'm'), uO = gl.getUniformLocation(pr, 'o'), uS = gl.getUniformLocation(pr, 'sc');
   const hero = $('#hero'); let W = 0, Hh = 0, mx = .35, my = .1, cx = mx, cy = my, vu = true, actif = true;
-  const taille = () => { const q = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1 : 1.5) * (innerWidth < 700 ? .7 : .85);
+  const taille = () => { const q = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1 : 1.5) * (innerWidth < 700 ? .65 : .8);
     W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; gl.viewport(0, 0, W, Hh); };
   taille(); addEventListener('resize', taille);
   hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = ((e.clientX - r.left) - r.width / 2) / r.height; my = -((e.clientY - r.top) - r.height / 2) / r.height; }, { passive: true });
   new IntersectionObserver(es => { vu = es[0].isIntersecting; }).observe(hero);
   document.addEventListener('visibilitychange', () => { actif = !document.hidden; });
   const dessin = ms => { if (vu && actif) { cx += (mx - cx) * .05; cy += (my - cy) * .05;
+      const sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = W / Hh > 1.15;
+      gl.uniform3f(uO, large ? .44 : .2, (large ? .02 : .27) + sc * .3, large ? .5 : .38); gl.uniform1f(uS, sc);
       gl.uniform2f(uR, W, Hh); gl.uniform1f(uT, ms / 1000); gl.uniform2f(uM, cx, cy); gl.drawArrays(gl.TRIANGLES, 0, 3); }
     if (!calme) requestAnimationFrame(dessin); };
   requestAnimationFrame(ms => { dessin(calme ? 20000 : ms); cv.classList.add('ok'); });
