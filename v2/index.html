@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/addons/"}}</script>
 <style>
 :root{
   --bg:#07090c; --bg2:#0b0e13; --card:rgba(255,255,255,.035); --line:rgba(255,255,255,.09);
@@ -786,6 +787,8 @@ footer a:hover{color:var(--txt)}
   form.addEventListener('submit', e => { e.preventDefault(); const t = texte(); if (t) location.href = `mailto:contact@hakkanodev.fr?subject=${encodeURIComponent(t.sujet)}&body=${encodeURIComponent(t.corps)}`; });
   $('#wa').addEventListener('click', () => { const t = texte(); if (t) open(`https://wa.me/33763534037?text=${encodeURIComponent(t.corps)}`, '_blank', 'noopener'); });
 
+  // Version légère (fils de lumière), utilisée si la scène Three.js ne peut pas tourner correctement
+  const fils = () => {
   // Fond 3D : sculpture tissée de fils de lumière (tore tressé, sphère en spirales, hyperboloïde) qui se transforme.
   // Tout est tracé en lignes fines : net à toute résolution, et très léger à afficher.
   const cv = $('#gl'), gl = cv.getContext('webgl', { antialias: true, alpha: true, premultipliedAlpha: true, powerPreference: 'high-performance' });
@@ -850,6 +853,13 @@ void main(){
       gl.bindBuffer(gl.ARRAY_BUFFER, bPts); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0); gl.uniform1f(uPt, 1); gl.drawArrays(gl.POINTS, 0, NP); }
     if (!calme) requestAnimationFrame(dessin); };
   requestAnimationFrame(ms => { dessin(calme ? 2000 : ms); cv.classList.add('ok'); });
+  };
+
+  // Scène principale : Three.js (verre, reflets, halo). Secours automatique vers la version légère.
+  const neuf = () => { const v = $('#gl'), n = v.cloneNode(false); n.classList.remove('ok'); v.replaceWith(n); };
+  const q3 = location.search;
+  if (calme || /[?&]3d=non/.test(q3)) fils();
+  else import('./scene.js').then(m => m.demarrer({ cv: $('#gl'), hero: $('#hero'), force: /[?&]3d=force/.test(q3), surLent: () => { neuf(); fils(); } })).catch(() => { neuf(); fils(); });
 })();
 </script>
 </body>
