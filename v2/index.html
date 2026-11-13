@@ -153,6 +153,44 @@ h1 .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transiti
 @keyframes write{0%{stroke-dashoffset:200}35%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:-200}}
 .v-txt .caret{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
 
+/* services : liste + panneau */
+.svc{position:relative;list-style:none;padding-right:50%;min-height:600px}
+.svc-i{border-top:1px solid var(--line)}
+.svc-i:last-child{border-bottom:1px solid var(--line)}
+.svc-i button{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:22px;width:100%;padding:20px 0;cursor:pointer}
+.svc-i button:focus-visible{outline:2px solid var(--a);outline-offset:4px;border-radius:8px}
+.svc-i .num{font:500 13px var(--mono);color:var(--dim);transition:color .3s;min-width:22px}
+.svc-i .ttl{flex:1;font:700 clamp(1.45rem,2.5vw,2.25rem)/1.1 var(--disp);letter-spacing:-.03em;color:#6f7a85;transition:color .35s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.svc-i .plus{position:relative;flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);transition:.35s}
+.svc-i .plus::before,.svc-i .plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--mut);transition:.35s}
+.svc-i .plus::after{transform:rotate(90deg)}
+.svc-i.on .num{color:var(--a)}
+.svc-i.on .ttl{color:var(--txt);transform:translateX(6px)}
+.svc-i.on .plus{background:var(--a);border-color:var(--a)}
+.svc-i.on .plus::before,.svc-i.on .plus::after{background:#03160d}
+.svc-i.on .plus::after{transform:rotate(0)}
+.svc-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
+.svc-i.on .svc-b{grid-template-rows:1fr}
+.svc-b>div{overflow:hidden;padding-left:44px}
+.svc-b p{color:var(--mut);max-width:48ch}
+.svc-b .tags{padding:16px 0 24px;margin:0}
+.svc-i .viz{position:absolute;right:0;top:0;width:45%;height:100%;margin:0;border-radius:28px;opacity:0;transform:scale(.965) translateY(10px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none;
+ background:radial-gradient(80% 60% at 50% 40%,rgba(46,229,157,.14),transparent 70%),linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.1)}
+.svc-i .viz::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:radial-gradient(circle at 50% 45%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 45%,#000,transparent 75%)}
+.svc-i::after{content:attr(data-num);position:absolute;right:calc(45% - 150px);bottom:18px;width:130px;text-align:right;font:800 5.2rem/1 var(--disp);letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);opacity:0;transition:opacity .5s;pointer-events:none}
+.svc-i.on::after{opacity:1}
+.svc-i.on .viz{opacity:1;transform:none}
+.svc-i .viz svg{position:relative;width:86%;height:auto;max-height:70%}
+.svc-i .v-site svg{transform:scale(1.75)}
+/* phrase */
+.mani{padding:clamp(40px,7vw,110px) 0}
+.mani p{font:800 clamp(1.9rem,5.3vw,4.5rem)/1.06 var(--disp);letter-spacing:-.04em;max-width:19ch}
+.mani p span{opacity:.13;transition:opacity .25s linear}
+.mani p em{font-style:normal;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--a);animation:none}
+/* tarif principal : bordure animée */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.pr.top::after{opacity:1;background:conic-gradient(from var(--ang),transparent 0 55%,var(--a) 70%,var(--b) 80%,var(--c) 88%,transparent 96%);animation:tour 5s linear infinite}
+@keyframes tour{to{--ang:360deg}}
 /* réalisations */
 .works{display:grid;gap:18px}
 .wk{display:grid;grid-template-columns:1.05fr 1fr;min-height:500px}
@@ -284,7 +322,19 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:14px 30px;justify-content:space-bet
 footer a:hover{color:var(--txt)}
 .big{font:800 clamp(3.4rem,17vw,15rem)/.85 var(--disp);letter-spacing:-.06em;text-align:center;margin:10px 0 34px;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0));-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
 
+@media (min-width:981px) and (min-height:680px){
+  .works{display:block}
+  .wk{position:sticky;top:92px;margin-bottom:26px;background:#0c1014;transform-origin:50% 0}
+  .wk.in{transition:opacity .9s ease}
+  .wk:last-child{margin-bottom:0}
+}
 @media (max-width:980px){
+  .svc{padding-right:0;min-height:0}
+  .svc-i .viz{position:relative;width:100%;height:170px;display:none;margin:0 0 16px;transform:none}
+  .svc-i.on .viz{display:grid}
+  .svc-i::after{display:none}
+  .svc-i .v-site svg{transform:scale(1.5)}
+  .svc-b>div{padding-left:0}
   .nav nav{display:none}
   .sv,.sv.w,.sv.h{grid-column:span 6}
   .wk,.wk:nth-child(even){grid-template-columns:1fr}
@@ -304,6 +354,7 @@ footer a:hover{color:var(--txt)}
   .phone{width:190px}
   .steps{padding-left:46px}.step .n{left:-46px;width:34px;height:34px}.rail{left:16px}
   #halo{display:none}
+  #gl.ok{opacity:.6}
   .logo span{display:none}
 }
 @media (prefers-reduced-motion:reduce){
@@ -357,8 +408,9 @@ footer a:hover{color:var(--txt)}
       <h2>Tout ce qu'il faut pour être <em>en ligne et efficace</em>.</h2>
       <p class="lead">Du site d'une page à l'application complète. Vous décrivez le besoin, je vous dis clairement si c'est faisable, comment et à quel prix.</p>
     </div>
-    <div class="bento">
-      <article class="card sv w rv">
+    <ol class="svc rv" id="svc">
+      <li class="svc-i on" data-num="01">
+        <button type="button" aria-expanded="true"><span class="num">01</span><span class="ttl">Sites vitrines &amp; refontes</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-site"><svg viewBox="0 0 600 150" preserveAspectRatio="xMidYMid meet">
           <rect x="150" y="16" width="300" height="118" rx="12" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.18)"/>
           <circle cx="168" cy="32" r="3.5" fill="#2ee59d"/><circle cx="180" cy="32" r="3.5" fill="rgba(255,255,255,.25)"/><circle cx="192" cy="32" r="3.5" fill="rgba(255,255,255,.25)"/>
@@ -369,22 +421,20 @@ footer a:hover{color:var(--txt)}
           <rect x="396" y="52" width="40" height="72" rx="8" fill="url(#g1)" opacity=".85"/>
           <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2ee59d"/><stop offset="1" stop-color="#6ff3ff"/></linearGradient></defs>
         </svg></div>
-        <h3>Sites vitrines &amp; refontes</h3>
-        <p>Un site clair, rapide et pensé d'abord pour le téléphone : vos prestations, vos photos, un moyen simple de vous joindre. WordPress ou sur mesure, selon ce qui vous sert le mieux.</p>
-        <div class="tags"><span>WordPress</span><span>Sur mesure</span><span>Landing page</span><span>Refonte</span><span>dès 249 €</span></div>
-      </article>
-      <article class="card sv rv">
+        <div class="svc-b"><div><p>Un site clair, rapide et pensé d'abord pour le téléphone : vos prestations, vos photos, un moyen simple de vous joindre. WordPress ou sur mesure, selon ce qui vous sert le mieux.</p><div class="tags"><span>WordPress</span><span>Sur mesure</span><span>Landing page</span><span>Refonte</span><span>dès 249 €</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="02">
+        <button type="button" aria-expanded="false"><span class="num">02</span><span class="ttl">Boutiques en ligne</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-shop"><svg viewBox="0 0 300 150">
           <g class="p"><rect x="40" y="38" width="60" height="78" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/><rect x="50" y="48" width="40" height="34" rx="6" fill="#2ee59d" opacity=".8"/><rect x="50" y="92" width="30" height="6" rx="3" fill="rgba(255,255,255,.4)"/></g>
           <g class="p"><rect x="120" y="38" width="60" height="78" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/><rect x="130" y="48" width="40" height="34" rx="6" fill="#6ff3ff" opacity=".8"/><rect x="130" y="92" width="30" height="6" rx="3" fill="rgba(255,255,255,.4)"/></g>
           <g class="p"><rect x="200" y="38" width="60" height="78" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)"/><rect x="210" y="48" width="40" height="34" rx="6" fill="#c8ff5a" opacity=".8"/><rect x="210" y="92" width="30" height="6" rx="3" fill="rgba(255,255,255,.4)"/></g>
           <g class="badge"><circle cx="262" cy="34" r="13" fill="#2ee59d"/><text x="262" y="39" text-anchor="middle" font-family="Inter" font-weight="700" font-size="13" fill="#03160d">3</text></g>
         </svg></div>
-        <h3>Boutiques en ligne</h3>
-        <p>Catalogue, déclinaisons, paiement, livraison et import de vos produits. Vous gérez ensuite la boutique seul.</p>
-        <div class="tags"><span>Shopify</span><span>WooCommerce</span><span>PrestaShop</span><span>Stripe</span></div>
-      </article>
-      <article class="card sv rv">
+        <div class="svc-b"><div><p>Catalogue, déclinaisons, paiement, livraison et import de vos produits. Vous gérez ensuite la boutique seul.</p><div class="tags"><span>Shopify</span><span>WooCommerce</span><span>PrestaShop</span><span>Stripe</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="03">
+        <button type="button" aria-expanded="false"><span class="num">03</span><span class="ttl">Applications web &amp; mobiles</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-app"><svg viewBox="0 0 300 150">
           <defs><clipPath id="ph"><rect x="115" y="14" width="70" height="122" rx="14"/></clipPath></defs>
           <g clip-path="url(#ph)"><g class="scr">
@@ -394,30 +444,27 @@ footer a:hover{color:var(--txt)}
           </g></g>
           <rect x="115" y="14" width="70" height="122" rx="14" class="st" stroke="rgba(255,255,255,.35)"/>
         </svg></div>
-        <h3>Applications web &amp; mobiles</h3>
-        <p>Outils métiers, SaaS et applis iPhone / Android, de la première maquette à la publication sur les stores.</p>
-        <div class="tags"><span>React</span><span>React Native</span><span>Node.js</span><span>Supabase</span></div>
-      </article>
-      <article class="card sv rv">
+        <div class="svc-b"><div><p>Outils métiers, SaaS et applis iPhone / Android, de la première maquette à la publication sur les stores.</p><div class="tags"><span>React</span><span>React Native</span><span>Node.js</span><span>Supabase</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="04">
+        <button type="button" aria-expanded="false"><span class="num">04</span><span class="ttl">Urgence site piraté</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-sec"><svg viewBox="0 0 300 150">
           <path class="st" stroke="rgba(255,255,255,.35)" d="M150 22 196 38v34c0 30-20 48-46 58-26-10-46-28-46-58V38z" fill="rgba(46,229,157,.06)"/>
           <path class="st ok" stroke="#2ee59d" stroke-width="3" d="m133 76 12 12 24-26"/>
           <rect class="scan" x="96" y="74" width="108" height="2" rx="1" fill="#6ff3ff"/>
         </svg></div>
-        <h3>Urgence site piraté</h3>
-        <p>Nettoyage du code malveillant, remise en ligne, sécurisation et levée des avertissements de Google.</p>
-        <div class="tags"><span>Nettoyage</span><span>Sécurisation</span><span>Sauvegardes</span></div>
-      </article>
-      <article class="card sv rv">
+        <div class="svc-b"><div><p>Nettoyage du code malveillant, remise en ligne, sécurisation et levée des avertissements de Google.</p><div class="tags"><span>Nettoyage</span><span>Sécurisation</span><span>Sauvegardes</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="05">
+        <button type="button" aria-expanded="false"><span class="num">05</span><span class="ttl">Maintenance &amp; dépannage</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-fix"><svg viewBox="0 0 300 150">
           <path class="st" stroke="rgba(255,255,255,.12)" d="M10 75h70l14-34 22 68 20-52 12 18h142"/>
           <path class="st pulse" stroke="#2ee59d" stroke-width="2.5" d="M10 75h70l14-34 22 68 20-52 12 18h142"/>
         </svg></div>
-        <h3>Maintenance &amp; dépannage</h3>
-        <p>Bugs, erreur 500, mises à jour, lenteurs, reprise d'un code existant. Un diagnostic clair avant toute intervention.</p>
-        <div class="tags"><span>PHP</span><span>Laravel</span><span>ASP.NET</span><span>JavaScript</span></div>
-      </article>
-      <article class="card sv h rv">
+        <div class="svc-b"><div><p>Bugs, erreur 500, mises à jour, lenteurs, reprise d'un code existant. Un diagnostic clair avant toute intervention.</p><div class="tags"><span>PHP</span><span>Laravel</span><span>ASP.NET</span><span>JavaScript</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="06">
+        <button type="button" aria-expanded="false"><span class="num">06</span><span class="ttl">Automatisations &amp; intégrations</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz v-auto"><svg viewBox="0 0 300 150">
           <path class="st" stroke="rgba(255,255,255,.16)" d="M30 75C90 75 90 30 150 30s60 45 120 45"/><path class="st" stroke="rgba(255,255,255,.16)" d="M30 75c60 0 60 45 120 45s60-45 120-45"/>
           <circle class="dot" r="4" fill="#6ff3ff"/><circle class="dot b" r="4" fill="#c8ff5a"/>
@@ -426,11 +473,10 @@ footer a:hover{color:var(--txt)}
           <g class="n" style="animation-delay:1.2s"><rect x="132" y="102" width="36" height="36" rx="10" fill="#0d1216" stroke="rgba(255,255,255,.3)"/></g>
           <g class="n" style="animation-delay:1.8s"><rect x="252" y="57" width="36" height="36" rx="10" fill="#0d1216" stroke="#2ee59d"/></g>
         </svg></div>
-        <h3>Automatisations &amp; intégrations</h3>
-        <p>Vos outils reliés entre eux : scripts, Excel et Google Sheets, API, réservation en ligne, paiement, chatbots. Moins de saisie, moins d'oublis.</p>
-        <div class="tags"><span>Python</span><span>API</span><span>Google Sheets</span><span>Chatbot</span></div>
-      </article>
-      <article class="card sv h rv">
+        <div class="svc-b"><div><p>Vos outils reliés entre eux : scripts, Excel et Google Sheets, API, réservation en ligne, paiement, chatbots. Moins de saisie, moins d'oublis.</p><div class="tags"><span>Python</span><span>API</span><span>Google Sheets</span><span>Chatbot</span></div></div></div>
+      </li>
+      <li class="svc-i" data-num="07">
+        <button type="button" aria-expanded="false"><span class="num">07</span><span class="ttl">Référencement, rédaction &amp; correction</span><i class="plus" aria-hidden="true"></i></button>
         <div class="viz" style="grid-template-columns:1fr 1fr;place-items:stretch">
           <div class="v-seo" style="display:grid;place-items:center"><svg viewBox="0 0 150 150">
             <rect class="col" x="22" y="92" width="16" height="34" rx="5" fill="rgba(255,255,255,.2)"/><rect class="col" x="46" y="76" width="16" height="50" rx="5" fill="rgba(255,255,255,.28)"/><rect class="col" x="70" y="58" width="16" height="68" rx="5" fill="#6ff3ff"/><rect class="col" x="94" y="40" width="16" height="86" rx="5" fill="#2ee59d"/><rect class="col" x="118" y="24" width="16" height="102" rx="5" fill="#c8ff5a"/>
@@ -440,12 +486,15 @@ footer a:hover{color:var(--txt)}
             <rect class="caret" x="92" y="96" width="3" height="16" fill="#2ee59d"/>
           </svg></div>
         </div>
-        <h3>Référencement, rédaction &amp; correction</h3>
-        <p>Pages rapides et bien structurées pour Google, textes de site et fiches produits, relecture et correction de documents, traduction français, anglais, espagnol.</p>
-        <div class="tags"><span>SEO</span><span>Fiche Google</span><span>Rédaction</span><span>Correction</span><span>Traduction</span></div>
-      </article>
-    </div>
+        <div class="svc-b"><div><p>Pages rapides et bien structurées pour Google, textes de site et fiches produits, relecture et correction de documents, traduction français, anglais, espagnol.</p><div class="tags"><span>SEO</span><span>Fiche Google</span><span>Rédaction</span><span>Correction</span><span>Traduction</span></div></div></div>
+      </li>
+    </ol>
   </div>
+</section>
+
+<!-- PHRASE -->
+<section class="mani" aria-label="Le principe">
+  <div class="wrap"><p id="mani">Vous décrivez votre besoin. Je vous montre une vraie première version. Et vous ne payez <em>qu'une fois le résultat validé.</em></p></div>
 </section>
 
 <!-- RÉALISATIONS -->
@@ -667,6 +716,22 @@ footer a:hover{color:var(--txt)}
   couper(h1);
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add('go')));
 
+  // Services : un seul élément ouvert, au survol (souris) ou au clic
+  const svc = $$('.svc-i'); const ouvrir = li => svc.forEach(x => { const on = x === li; x.classList.toggle('on', on); x.firstElementChild.setAttribute('aria-expanded', on); });
+  svc.forEach(li => { li.firstElementChild.addEventListener('click', () => ouvrir(li)); if (fin) li.addEventListener('pointerenter', () => ouvrir(li)); });
+
+  // Phrase qui s'allume mot par mot
+  const mani = $('#mani'), mots = [];
+  (function decouper(n) { for (const c of [...n.childNodes]) { if (c.nodeType === 3) { const f = document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(m => { if (!m) return; if (/^\s+$/.test(m)) { f.append(' '); return; } const sp = document.createElement('span'); sp.textContent = m; mots.push(sp); f.append(sp); }); c.replaceWith(f); } else decouper(c); } })(mani);
+  const allumer = () => { const r = mani.getBoundingClientRect(), p = Math.max(0, Math.min(1, (innerHeight * .88 - r.top) / (r.height + innerHeight * .42)));
+    mots.forEach((m, k) => { m.style.opacity = calme ? 1 : Math.max(.13, Math.min(1, (p * (mots.length + 3) - k) / 3)); }); };
+
+  // Réalisations empilées : la carte recouverte recule légèrement
+  const wks = $$('.wk'), pile = matchMedia('(min-width:981px) and (min-height:680px)');
+  const empiler = () => { if (calme) return; wks.forEach((w, k) => { const nx = wks[k + 1]; if (!pile.matches || !nx || !w.classList.contains('in')) { w.style.transform = ''; return; }
+    const p = Math.max(0, Math.min(1, 1 - (nx.getBoundingClientRect().top - 92) / (innerHeight - 92))); w.style.transform = p > 0 ? `scale(${1 - p * .06})` : ''; w.style.opacity = p > 0 ? 1 - p * .45 : ''; }); };
+
   // Bandeau : contenu doublé pour une boucle sans couture
   const mq = $('#marq'); mq.innerHTML += mq.innerHTML;
 
@@ -692,7 +757,7 @@ footer a:hover{color:var(--txt)}
   const bar = $('#bar'), nav = $('#nav'), rail = $('#rail'), steps = $('#steps'); let tic = false;
   const defile = () => { tic = false; const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${H > 0 ? y / H : 0})`; nav.classList.toggle('on', y > 30);
-    const r = steps.getBoundingClientRect(); rail.style.transform = `scaleY(${Math.max(0, Math.min(1, (innerHeight * .62 - r.top) / r.height))})`; pivoter(); };
+    const r = steps.getBoundingClientRect(); rail.style.transform = `scaleY(${Math.max(0, Math.min(1, (innerHeight * .62 - r.top) / r.height))})`; pivoter(); allumer(); empiler(); };
   addEventListener('scroll', () => { if (!tic) { tic = true; requestAnimationFrame(defile); } }, { passive: true }); defile();
 
   if (fin && !calme) {
@@ -707,10 +772,6 @@ footer a:hover{color:var(--txt)}
       zone.addEventListener('pointermove', e => { t.dataset.h = 1; const r = zone.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
         t.style.transform = `rotateY(${x * 16}deg) rotateX(${-y * 12}deg)`; }, { passive: true });
       zone.addEventListener('pointerleave', () => { delete t.dataset.h; pivoter(); }); });
-    // Cartes de services : légère bascule 3D
-    $$('.sv').forEach(c => { c.addEventListener('pointermove', e => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-        c.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-4px)`; }, { passive: true });
-      c.addEventListener('pointerleave', () => { c.style.transform = ''; }); });
     // Boutons aimantés
     $$('.mag').forEach(b => { b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect();
         b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; }, { passive: true });
