@@ -413,14 +413,16 @@ footer a:hover{color:#fff}
   if (!calme) requestAnimationFrame(boucleT);
 
   // Accueil : grande sculpture de fils blancs en 3D (WebGL), qui se transforme lentement
-  const cv = $('#gl'), gl = cv.getContext('webgl', { antialias: true, alpha: true, premultipliedAlpha: true, powerPreference: 'high-performance' });
+  // Sans accélération matérielle (3D calculée par le processeur), on coupe le lissage coûteux et on réduit un peu la résolution
+  const logiciel = (() => { try { const g = document.createElement('canvas').getContext('webgl'), e = g && g.getExtension('WEBGL_debug_renderer_info'); return !g || (e && /swiftshader|llvmpipe|software|basic render/i.test(g.getParameter(e.UNMASKED_RENDERER_WEBGL))); } catch { return false; } })();
+  const cv = $('#gl'), gl = cv.getContext('webgl', { antialias: !logiciel, alpha: true, premultipliedAlpha: true, powerPreference: 'high-performance' });
   if (!gl) return;
   const petit = innerWidth < 700, L = petit ? 90 : 170, S = petit ? 110 : 180, NV = L * S * 2, NP = petit ? 350 : 800;
   const fils = new Float32Array(NV * 2), pts = new Float32Array(NP * 2);
-  for (let i = 0, k = 0; i < L; i++) for (let j = 0; j < S; j++) { fils[k++] = j / S; fils[k++] = i / L; fils[k++] = (j + 1) / S; fils[k++] = i / L; }
+  for (let n = 0, k = 0; n < L; n++) { const i = (n * 67) % L; for (let j = 0; j < S; j++) { fils[k++] = j / S; fils[k++] = i / L; fils[k++] = (j + 1) / S; fils[k++] = i / L; } }
   for (let i = 0; i < NP; i++) { pts[i * 2] = Math.random(); pts[i * 2 + 1] = Math.floor(Math.random() * L) / L; }
   const vs = `attribute vec2 a;
-uniform float t,ph,sc,px,asp,pt;uniform vec2 m;uniform vec3 o;
+uniform float t,ph,sc,px,asp,pt,gain;uniform vec2 m;uniform vec3 o;
 varying vec3 vc;varying float va,vp;
 const float T=6.28318;
 mat2 rot(float x){float c=cos(x),s=sin(x);return mat2(c,-s,s,c);}
@@ -441,7 +443,7 @@ void main(){
   float dp=clamp((p.z+1.5)/3.,0.,1.);
   gl_PointSize=max(1.5,px*k*o.z*(2.2+3.6*fract(i*37.+u*11.))*(.6+.8*dp));
   vc=mix(vec3(1.),vec3(.18,.90,.62),step(.955,fract(i*13.)));
-  va=(pt>.5?(.2+.7*dp):(.045+.34*dp*dp))*(1.-sc*.85);vp=pt;
+  va=(pt>.5?(.2+.7*dp):(.045+.34*dp*dp)*gain)*(1.-sc*.85);vp=pt;
 }`;
   const fs = 'precision mediump float;varying vec3 vc;varying float va,vp;void main(){float al=va;if(vp>.5){vec2 c=gl_PointCoord-.5;al*=smoothstep(.25,.0,dot(c,c));}gl_FragColor=vec4(vc*al,al);}';
   const sh = (ty, src) => { const s = gl.createShader(ty); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null; };
@@ -450,24 +452,26 @@ void main(){
   const la = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(la);
   const tampon = d => { const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, d, gl.STATIC_DRAW); return b; };
   const bFils = tampon(fils), bPts = tampon(pts);
-  const U = n => gl.getUniformLocation(pr, n), uT = U('t'), uPh = U('ph'), uSc = U('sc'), uPx = U('px'), uAsp = U('asp'), uM = U('m'), uO = U('o'), uPt = U('pt');
+  const U = n => gl.getUniformLocation(pr, n), uT = U('t'), uPh = U('ph'), uSc = U('sc'), uPx = U('px'), uAsp = U('asp'), uM = U('m'), uO = U('o'), uPt = U('pt'), uGain = U('gain');
   gl.disable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE); gl.clearColor(0, 0, 0, 0);
   const hero = $('#hero'); let W = 0, Hh = 0, asp = 1, mx = 9, my = 9, cx = 9, cy = 9, vu = true, actif = true;
-  const taille = () => { const q = Math.min(devicePixelRatio || 1, 2); W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; asp = W / Hh; gl.viewport(0, 0, W, Hh); };
+  const taille = () => { const q = logiciel ? .85 : Math.min(devicePixelRatio || 1, 2); W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; asp = W / Hh; gl.viewport(0, 0, W, Hh); };
   taille(); addEventListener('resize', taille);
   hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = ((e.clientX - r.left) / r.width * 2 - 1) * asp; my = -((e.clientY - r.top) / r.height * 2 - 1); }, { passive: true });
   hero.addEventListener('pointerleave', () => { mx = 9; my = 9; });
   new IntersectionObserver(es => { vu = es[0].isIntersecting; }).observe(hero);
   document.addEventListener('visibilitychange', () => { actif = !document.hidden; });
-  const CYCLE = 9, PAUSE = 5.6;
+  const CYCLE = 9, PAUSE = 5.6; let part = 1, avantD = 0, moyD = 8, nD = 0; // part : fraction des fils dessinés, réduite si l'appareil peine
   const dessin = ms => { if (vu && actif) { const loin = Math.abs(mx) > 8; cx = loin || Math.abs(cx) > 8 ? mx : cx + (mx - cx) * .08; cy = loin || Math.abs(cy) > 8 ? my : cy + (my - cy) * .08;
       const t = ms / 1000, tt = t % (3 * CYCLE), idx = Math.floor(tt / CYCLE), loc = tt - idx * CYCLE, ph = idx + (loc < PAUSE ? 0 : (loc - PAUSE) / (CYCLE - PAUSE));
       const sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = asp > 1.15;
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform1f(uT, t); gl.uniform1f(uPh, calme ? 0 : ph); gl.uniform1f(uSc, sc); gl.uniform1f(uPx, Hh / 900); gl.uniform1f(uAsp, asp);
       gl.uniform2f(uM, loin ? 0 : cx, loin ? 9 : cy); gl.uniform3f(uO, 0, -.06 + sc * .3, large ? 1.5 : .95);
-      gl.bindBuffer(gl.ARRAY_BUFFER, bFils); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0); gl.uniform1f(uPt, 0); gl.drawArrays(gl.LINES, 0, NV);
-      gl.bindBuffer(gl.ARRAY_BUFFER, bPts); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0); gl.uniform1f(uPt, 1); gl.drawArrays(gl.POINTS, 0, NP); }
+      gl.bindBuffer(gl.ARRAY_BUFFER, bFils); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0); gl.uniform1f(uPt, 0); gl.uniform1f(uGain, 1 / Math.sqrt(part)); gl.drawArrays(gl.LINES, 0, Math.max(1, Math.round(L * part)) * S * 2);
+      gl.bindBuffer(gl.ARRAY_BUFFER, bPts); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0); gl.uniform1f(uPt, 1); gl.drawArrays(gl.POINTS, 0, NP);
+      if (avantD) { moyD += (Math.min(80, ms - avantD) - moyD) * .12; if (++nD > 14) { nD = 0; if (moyD > 12.5 && part > .3) part = Math.max(.3, part - .14); else if (moyD < 5.5 && part < 1) part = Math.min(1, part + .07); } }
+      avantD = ms; } else avantD = 0;
     if (!calme) requestAnimationFrame(dessin); };
   requestAnimationFrame(ms => { dessin(calme ? 2000 : ms); cv.classList.add('ok'); });
 })();
