@@ -40,7 +40,7 @@ h2 em,h1 em{font-style:normal;background:var(--grad);background-size:220% 100%;-
 .head{margin-bottom:clamp(36px,5vw,64px)}
 
 /* fond global : grain + halo qui suit la souris */
-body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.22;
  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 #halo{position:fixed;left:0;top:0;width:620px;height:620px;margin:-310px 0 0 -310px;border-radius:50%;pointer-events:none;z-index:0;
  background:radial-gradient(circle,rgba(46,229,157,.10),rgba(111,243,255,.05) 35%,transparent 65%);transform:translate3d(50vw,30vh,0);will-change:transform}
@@ -68,7 +68,7 @@ main,header,footer{position:relative;z-index:2}
 
 /* accueil */
 .hero{min-height:100svh;display:grid;align-items:center;padding:140px 0 90px;overflow:hidden;isolation:isolate}
-#gl{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 1.4s ease}
+#gl{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:0;transition:opacity 1.4s ease;transform:translateZ(0)}
 #gl.ok{opacity:1}
 .hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 50% at 70% 30%,rgba(46,229,157,.18),transparent 70%),radial-gradient(50% 50% at 15% 80%,rgba(111,243,255,.12),transparent 70%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 60% at 30% 50%,rgba(7,9,12,.78),transparent 75%),linear-gradient(180deg,transparent 60%,var(--bg))}
@@ -167,7 +167,7 @@ h1 .w>span{display:inline-block;transform:translateY(110%) rotate(4deg);transiti
 .wk-t li::before{content:"";flex:none;width:6px;height:6px;margin-top:9px;border-radius:50%;background:var(--a);box-shadow:0 0 10px var(--a)}
 .wk-v{position:relative;min-height:340px;display:grid;place-items:center;perspective:1200px;overflow:hidden;background:radial-gradient(70% 70% at 50% 50%,var(--glow,rgba(46,229,157,.2)),transparent 70%)}
 .wk-v::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%)}
-.tilt{transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.tilt{transform-style:preserve-3d;transition:transform .18s ease-out;will-change:transform}
 .phone{position:relative;width:206px;aspect-ratio:390/800;border-radius:38px;padding:9px;background:linear-gradient(160deg,#2b313a,#0d1014);box-shadow:0 0 0 1px rgba(255,255,255,.14),0 50px 90px -30px rgba(0,0,0,.9),0 0 80px -20px var(--glow,rgba(46,229,157,.5))}
 .phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:30px}
 .phone::after{content:"";position:absolute;top:17px;left:50%;width:74px;height:20px;margin-left:-37px;border-radius:12px;background:#07090c}
@@ -463,7 +463,6 @@ footer a:hover{color:var(--txt)}
           <h3>Yuki</h3>
           <p>Une application pour apprendre le japonais quand on parle français, avec un personnage qui accompagne chaque leçon.</p>
           <ul><li>6 400 mots avec audio et révisions espacées</li><li>Parcours débutant, mini-jeux et conversation avec une IA</li><li>Développée en React, installable sur téléphone</li></ul>
-          <a class="link" href="https://yukiapp.fr" target="_blank" rel="noopener">Voir yukiapp.fr <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg></a>
         </div>
         <div class="wk-v"><div class="tilt" data-tilt style="width:100%;height:100%;display:grid;place-items:center;position:relative">
           <div class="brow"><i><b></b></i><img src="img/yuki-desktop.jpg" alt="" loading="lazy" width="1280" height="800"></div>
@@ -732,15 +731,19 @@ footer a:hover{color:var(--txt)}
   const deriv = gl.getExtension('OES_standard_derivatives');
   const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   const petit = innerWidth < 700;
-  const fs = `${deriv ? '#extension GL_OES_standard_derivatives : enable\n#define DERIV\n' : ''}#define STEPS ${petit ? 44 : 84}
+  const fs = `${deriv ? '#extension GL_OES_standard_derivatives : enable\n#define DERIV\n' : ''}#define STEPS ${petit ? 34 : 52}
 precision highp float;
-uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 o;uniform float sc;
+uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 o;uniform float sc;uniform vec3 k[4];
 const vec3 c1=vec3(.18,.90,.62),c2=vec3(.43,.95,1.),c3=vec3(.78,1.,.35);
 float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
 float fbm(vec2 p){float a=.5,s=0.;for(int i=0;i<4;i++){s+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return s;}
 mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
 float smin(float a,float b,float k){float q=max(k-abs(a-b),0.)/k;return min(a,b)-q*q*k*.25;}
+float fbm3(vec2 p){float a=.5,s=0.;for(int i=0;i<3;i++){s+=a*n(p);p=p*2.03+vec2(17.3,9.1);a*=.5;}return s*1.07;}
+float champ2(vec2 uv){vec2 p=uv*1.35+vec2(.6,0.);
+  vec2 q=p+.85*vec2(fbm3(p+vec2(0.,t*.045)),fbm3(p+vec2(5.2,-t*.038)));
+  return fbm3(q*1.15+vec2(t*.02,0.));}
 float champ(vec2 uv){vec2 p=uv*1.35+vec2(.6,0.);
   vec2 q=p+.85*vec2(fbm(p+vec2(0.,t*.045)),fbm(p+vec2(5.2,-t*.038)));
   return fbm(q*1.15+vec2(t*.02,0.));}
@@ -751,16 +754,12 @@ vec3 lignes(vec2 uv,float f,float w){float k=f*11.,g=abs(fract(k)-.5);
   return teinte(f)*(l*.85+exp(-g*g*38.)*.28)*fade*vig+vec3(.02,.09,.07)*smoothstep(.25,.85,f)*fade*vig;}
 vec3 mp;
 float map(vec3 p){
-  float d2=length(p-mp)-.30;
-  p.xz*=rot(t*.16+m.x*.7);p.yz*=rot(.25+m.y*.45);
-  float e=1.18+sc*1.1;
   float d=length(p)-.50;
-  d=smin(d,length(p-e*vec3(.78*sin(t*.50),.62*cos(t*.43),.50*sin(t*.37+1.)))-.36,.36);
-  d=smin(d,length(p-e*vec3(.70*cos(t*.39+2.),.66*sin(t*.47+.5),.60*cos(t*.31)))-.31,.36);
-  d=smin(d,length(p-e*vec3(.60*sin(t*.33+4.),.80*sin(t*.29+2.),.55*cos(t*.41+3.)))-.27,.36);
-  d=smin(d,length(p-e*vec3(.85*cos(t*.27+1.),.40*cos(t*.52+4.),.50*sin(t*.45+2.)))-.22,.34);
-  d+=.02*sin(5.*p.x+t*.9)*sin(5.*p.y-t*.7)*sin(5.*p.z+t*.5);
-  return smin(d,d2,.45);}
+  d=smin(d,length(p-k[0])-.36,.36);
+  d=smin(d,length(p-k[1])-.31,.36);
+  d=smin(d,length(p-k[2])-.27,.36);
+  d=smin(d,length(p-k[3])-.22,.34);
+  return smin(d,length(p-mp)-.30,.45);}
 vec3 env(vec3 d){
   vec3 c=mix(vec3(.004,.012,.012),vec3(.02,.07,.06),smoothstep(-.4,.7,d.y));
   c+=c1*pow(max(dot(d,normalize(vec3(.8,.6,.3))),0.),14.)*2.6;
@@ -781,10 +780,10 @@ void main(){
   col+=vec3(.015,.10,.075)*exp(-dot(u,u)*1.3);
   vec3 ro=vec3(0.,0.,3.4),rd=normalize(vec3(u,-1.9));
   vec2 mq=(m-o.xy)/o.z*1.63;mq*=min(1.,1.25/max(length(mq),.001));mp=vec3(mq,.35);
-  float R=1.8+sc*1.2,b=dot(ro,rd),cc=dot(ro,ro)-R*R,hh=b*b-cc;
+  float R=1.62+sc*1.25,b=dot(ro,rd),cc=dot(ro,ro)-R*R,hh=b*b-cc;
   if(hh>0.){
     float s=sqrt(hh),tt=-b-s,tf=-b+s,dm=1e3;bool hit=false;
-    for(int i=0;i<STEPS;i++){float d=map(ro+rd*tt);dm=min(dm,d);if(d<.0016*tt){hit=true;break;}tt+=d*.92;if(tt>tf)break;}
+    for(int i=0;i<STEPS;i++){float d=map(ro+rd*tt);dm=min(dm,d);if(d<.0022*tt){hit=true;break;}tt+=d;if(tt>tf)break;}
     if(hit){
       vec3 p=ro+rd*tt;vec2 e=vec2(.0018,-.0018);
       vec3 nn=normalize(e.xyy*map(p+e.xyy)+e.yyx*map(p+e.yyx)+e.yxy*map(p+e.yxy)+e.xxx*map(p+e.xxx));
@@ -792,7 +791,7 @@ void main(){
       vec3 rf=reflect(rd,nn);
       vec3 g=env(rf)*(.22+.95*fr);
       vec2 ur=uv+nn.xy*.16*o.z;
-      g+=lignes(ur,champ(ur),.05)*1.5*(1.-fr)+env(refract(rd,nn,.72))*.22*(1.-fr);
+      g+=lignes(ur,champ2(ur),.05)*1.5*(1.-fr)+env(refract(rd,nn,.72))*.22*(1.-fr);
       vec3 ir=mix(mix(c1,c2,.5+.5*sin(nv*7.+nn.y*3.+t*.3)),c3,.5+.5*sin(nv*5.-nn.x*4.+1.));
       g+=ir*fr*.6;
       g+=pow(max(dot(rf,normalize(vec3(.5,.7,.5))),0.),70.)*1.3;
@@ -807,18 +806,30 @@ void main(){
   const pr = gl.createProgram(); gl.attachShader(pr, a); gl.attachShader(pr, b); gl.linkProgram(pr); if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return; gl.useProgram(pr);
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uM = gl.getUniformLocation(pr, 'm'), uO = gl.getUniformLocation(pr, 'o'), uS = gl.getUniformLocation(pr, 'sc');
+  const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uM = gl.getUniformLocation(pr, 'm'), uO = gl.getUniformLocation(pr, 'o'), uS = gl.getUniformLocation(pr, 'sc'), uK = gl.getUniformLocation(pr, 'k');
+  const K = new Float32Array(12);
   const hero = $('#hero'); let W = 0, Hh = 0, mx = .35, my = .1, cx = mx, cy = my, vu = true, actif = true;
-  const taille = () => { const q = Math.min(devicePixelRatio || 1, innerWidth < 700 ? 1 : 1.5) * (innerWidth < 700 ? .65 : .8);
-    W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; gl.viewport(0, 0, W, Hh); };
+  // Résolution adaptative : on vise une animation fluide, la netteté s'ajuste à la machine
+  const qMax = Math.min(devicePixelRatio || 1, 1.5) * (petit ? .6 : .75), qMin = .28; let q = Math.min(qMax, petit ? .45 : .55);
+  const taille = () => { W = Math.max(2, Math.round(hero.clientWidth * q)); Hh = Math.max(2, Math.round(hero.clientHeight * q)); cv.width = W; cv.height = Hh; gl.viewport(0, 0, W, Hh); };
   taille(); addEventListener('resize', taille);
   hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); mx = ((e.clientX - r.left) - r.width / 2) / r.height; my = -((e.clientY - r.top) - r.height / 2) / r.height; }, { passive: true });
   new IntersectionObserver(es => { vu = es[0].isIntersecting; }).observe(hero);
   document.addEventListener('visibilitychange', () => { actif = !document.hidden; });
+  let avant = 0, moy = 16, compte = 0;
   const dessin = ms => { if (vu && actif) { cx += (mx - cx) * .05; cy += (my - cy) * .05;
-      const sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = W / Hh > 1.15;
+      const t = ms / 1000, sc = Math.max(0, Math.min(1, scrollY / hero.clientHeight)), large = W / Hh > 1.15, e = 1.18 + sc * 1.1;
+      // centres des sphères, tournés ici plutôt que pour chaque pixel
+      const L = [[.78 * Math.sin(t * .50), .62 * Math.cos(t * .43), .50 * Math.sin(t * .37 + 1)], [.70 * Math.cos(t * .39 + 2), .66 * Math.sin(t * .47 + .5), .60 * Math.cos(t * .31)],
+        [.60 * Math.sin(t * .33 + 4), .80 * Math.sin(t * .29 + 2), .55 * Math.cos(t * .41 + 3)], [.85 * Math.cos(t * .27 + 1), .40 * Math.cos(t * .52 + 4), .50 * Math.sin(t * .45 + 2)]];
+      const A = -(t * .16 + cx * .7), B = -(.25 + cy * .45), ca = Math.cos(A), sa = Math.sin(A), cb = Math.cos(B), sb = Math.sin(B);
+      L.forEach((v, n) => { const x = v[0] * e, y0 = v[1] * e, z0 = v[2] * e, y = y0 * cb - z0 * sb, z1 = y0 * sb + z0 * cb; K[n * 3] = x * ca - z1 * sa; K[n * 3 + 1] = y; K[n * 3 + 2] = x * sa + z1 * ca; });
+      gl.uniform3fv(uK, K);
       gl.uniform3f(uO, large ? .44 : .2, (large ? .02 : .27) + sc * .3, large ? .5 : .38); gl.uniform1f(uS, sc);
-      gl.uniform2f(uR, W, Hh); gl.uniform1f(uT, ms / 1000); gl.uniform2f(uM, cx, cy); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+      gl.uniform2f(uR, W, Hh); gl.uniform1f(uT, t); gl.uniform2f(uM, cx, cy); gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (avant) { const dt = Math.min(100, ms - avant); moy += (dt - moy) * .1;
+        if (++compte > 12) { compte = 0; if (moy > 21 && q > qMin) { q = Math.max(qMin, q * (moy > 40 ? .65 : .85)); taille(); } else if (moy < 12.5 && q < qMax) { q = Math.min(qMax, q * 1.08); taille(); } } }
+      avant = ms; } else avant = 0;
     if (!calme) requestAnimationFrame(dessin); };
   requestAnimationFrame(ms => { dessin(calme ? 20000 : ms); cv.classList.add('ok'); });
 })();
