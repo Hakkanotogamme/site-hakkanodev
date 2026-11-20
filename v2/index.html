@@ -118,6 +118,7 @@ h1 .g{display:block;background:linear-gradient(90deg,#fff 0%,#9c9c9c 55%,#fff 10
 .sc .ph{width:27%}.sc .wd{width:62%;border-radius:14px}
 .pj.y{background:linear-gradient(120deg,#aab0e8,#dfe1fa 60%,#f4f1ff);color:#14143a;--v:rgba(170,176,232,.9)}
 .pj.d{background:linear-gradient(120deg,#1f2bd8,#3d4bff 60%,#8a94ff);--v:rgba(31,43,216,.9)}
+.pj.k{background:linear-gradient(120deg,#160f3a,#34268a 60%,#7a5cf0);--v:rgba(22,15,58,.92)}
 .pj.s{background:linear-gradient(120deg,#e9dcc6,#f6efe2 60%,#fffaf2);color:#2a1d10;--v:rgba(233,220,198,.92)}
 .pj.h{background:#050505;--v:rgba(5,5,5,.2)}
 .pj.h canvas{position:absolute;right:0;top:0;width:66%;height:100%}
@@ -258,13 +259,15 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="head c"><h2 class="hl bl">Des projets conçus et développés ici.<span class="g">Voici le résultat.</span></h2></div>
     <div class="tabs up" role="tablist" id="tabs">
-      <button class="on" role="tab" aria-selected="true" data-k="y">Yuki</button><button role="tab" aria-selected="false" data-k="d">DevisPilot</button><button role="tab" aria-selected="false" data-k="s">Sites vitrines</button><button role="tab" aria-selected="false" data-k="h">Hakuren</button>
+      <button class="on" role="tab" aria-selected="true" data-k="y">Yuki</button><button role="tab" aria-selected="false" data-k="d">DevisPilot</button><button role="tab" aria-selected="false" data-k="k">Hakeru</button><button role="tab" aria-selected="false" data-k="s">Sites vitrines</button><button role="tab" aria-selected="false" data-k="h">Hakuren</button>
     </div>
     <div class="stage up" id="stage">
       <div class="pj y on" data-k="y"><div class="meta"><small>Application web &amp; mobile</small><h3>Yuki</h3></div>
         <div class="sc"><img class="wd" src="img/yuki-desktop.jpg" alt="" loading="lazy"><img class="ph" src="img/yuki-mobile.jpg" alt="Application Yuki sur téléphone" loading="lazy"></div></div>
       <div class="pj d" data-k="d"><div class="meta"><small>Application iPhone · en développement</small><h3>DevisPilot</h3></div>
         <div class="sc"><img class="ph" src="img/dp-devis.jpg" alt="" loading="lazy"><img class="ph" src="img/dp-accueil.jpg" alt="Écran d'accueil de DevisPilot" loading="lazy"><img class="ph" src="img/dp-facture.jpg" alt="" loading="lazy"></div></div>
+      <div class="pj k" data-k="k"><div class="meta"><small>Agents IA pour l'entreprise</small><h3>Hakeru</h3></div>
+        <div class="sc"><img class="wd" src="img/hakeru-desktop.jpg" alt="Tableau de bord de Hakeru" loading="lazy"><img class="ph" src="img/hakeru-mobile.jpg" alt="Validation d'un envoi depuis le téléphone" loading="lazy"></div></div>
       <div class="pj s" data-k="s"><div class="meta"><small>Sites vitrines · démonstrations</small><h3>Artisans &amp; commerces</h3></div>
         <div class="sc"><img class="wd" src="../img/ex-boulangerie.jpg" alt="Exemple de site pour une boulangerie" loading="lazy"><img class="ph" src="../img/tel-garage.jpg" alt="" loading="lazy"></div></div>
       <div class="pj h" data-k="h"><div class="meta"><small>Logiciel Windows &amp; iPhone · projet personnel</small><h3>Hakuren</h3></div><canvas data-f="voix" data-c="255,255,255"></canvas></div>
@@ -274,6 +277,8 @@ footer a:hover{color:#fff}
       <ul class="on" data-k="y"><li>6 400 mots avec audio</li><li>Révisions espacées</li><li>Conversation avec une IA</li><li>React</li></ul>
       <p data-k="d">Les devis et les factures des micro-entrepreneurs, directement depuis le téléphone, avec les mentions légales françaises. Les écrans montrent des données de démonstration.</p>
       <ul data-k="d"><li>Devis et factures</li><li>Paiements et relances</li><li>React Native</li><li>Supabase</li></ul>
+      <p data-k="k">Des agents IA qui prennent en charge le travail de bureau répétitif d'une petite entreprise : trier le courrier, préparer un devis, relancer un client. Rien ne part sans l'accord d'une personne, donné depuis son téléphone. Les écrans montrent une entreprise fictive.</p>
+      <ul data-k="k"><li>44 modèles d'agents prêts à adapter</li><li>Validation depuis le téléphone</li><li>Un espace par entreprise</li><li>TypeScript</li></ul>
       <p data-k="s">Chaque site est dessiné selon le métier : horaires à jour, bouton d'appel, itinéraire, prise de rendez-vous. Les exemples montrés sont des démonstrations, avec des commerces fictifs.</p>
       <ul data-k="s"><li>332 maquettes de démonstration</li><li>Pensées pour le téléphone</li><li>Sans abonnement</li></ul>
       <p data-k="h">Une assistante personnelle pour PC, incarnée par un avatar 3D, qui écoute, répond et agit sur l'ordinateur : agenda, e-mails, notes, avec une mémoire d'une séance à l'autre.</p>
